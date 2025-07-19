@@ -1,81 +1,126 @@
-<meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
   <title>Graphics Pack অর্ডার ফর্ম</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      padding: 30px;
     }
     section {
-      max-width: 600px;
+      max-width: 650px;
       margin: auto;
       background: #fff;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     }
     h2, h3 {
-      color: #2C3E50;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: 500;
+      margin-top: 10px;
+      display: block;
     }
     input, select, textarea {
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 6px;
       width: 100%;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
     }
     button {
-      background: #27AE60;
+      background: #27ae60;
       color: #fff;
-      padding: 10px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
     }
-    .note, .disclaimer {
-      font-size: 14px;
-      color: #555;
+    button:hover {
+      background: #219150;
+    }
+    .note {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 10px;
     }
     .disclaimer {
-      background: #fefbea;
-      border-left: 5px solid #f1c40f;
-      padding: 10px;
-      margin-top: 20px;
+      background: #fff3cd;
+      border-left: 6px solid #ffc107;
+      padding: 15px;
+      margin-top: 25px;
+      font-size: 14px;
+      color: #856404;
+      font-weight: 500;
+      border-radius: 6px;
+    }
+    .highlight {
+      color: #d35400;
+      font-weight: bold;
+      font-size: 15px;
     }
     #thank-you {
       display: none;
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
       animation: fadeIn 1s ease-in-out;
     }
     #step2 {
       display: none;
     }
+    #readme-content {
+      display: none;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 6px;
+      background: #fafafa;
+      font-size: 14px;
+    }
+    #readme-content ol {
+      padding-left: 20px;
+    }
     @keyframes fadeIn {
       from {opacity: 0;}
       to {opacity: 1;}
     }
+    .footer-note {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #777;
+    }
   </style>
-
-
+</head>
+<body>
 
 <section>
   <h2>🎨 Graphics Pack অর্ডার ফর্ম</h2>
 
-  <form id="order-form" action="https://formspree.io/f/xdkznrqp" method="POST" novalidate="">
+  <form id="order-form" action="https://formspree.io/f/xdkznrqp" method="POST" novalidate>
 
-    
     <div id="step1">
       <label for="name">নাম:</label>
-      <input type="text" id="name" name="name" required="">
+      <input type="text" id="name" name="name" required>
 
       <label for="phone">মোবাইল নম্বর:</label>
-      <input type="tel" id="phone" name="phone" required="">
+      <input type="tel" id="phone" name="phone" required>
 
       <label for="email">ইমেইল:</label>
-      <input type="email" id="email" name="email" required="">
+      <input type="email" id="email" name="email" required>
 
       <label for="service">আপনি কী ধরনের সার্ভিস নিচ্ছেন?</label>
-      <select id="service" name="service" required="">
+      <select id="service" name="service" required>
         <option value="">-- একটি নির্বাচন করুন --</option>
         <option value="graphics-pack">শুধু Graphics Pack (৳১৫০)</option>
         <option value="graphics-pack-pendrive">Pendrive সহ Graphics Pack</option>
@@ -102,7 +147,7 @@
 
       <div id="address-section" style="display:none;">
         <label for="address">আপনার সম্পূর্ণ ঠিকানা:</label>
-        <textarea id="address" name="address" rows="3" required=""></textarea>
+        <textarea id="address" name="address" rows="3" required></textarea>
       </div>
 
       <p class="note">📌 মোট মূল্য: <strong><span id="total">৳১৫০</span></strong></p>
@@ -111,19 +156,36 @@
       <button type="button" onclick="goToStep2()">পরবর্তী ধাপে যান</button>
     </div>
 
-    
     <div id="step2">
-      <h3>📱 বিকাশ নাম্বার: <span style="color:#e74c3c;">+01641138934</span></h3>
+      <h3>📱 বিকাশ নাম্বার: <span class="highlight">+01641138934</span></h3>
       <p>উপরের নাম্বারে Send Money করুন এবং নিচে তথ্য দিন:</p>
 
-      <label><input type="checkbox" id="agreement" required=""> আমি নিশ্চিত করছি যে আমি বিকাশে টাকা পাঠিয়েছি।</label>
+      <label><input type="checkbox" id="agreement" required> আমি নিশ্চিত করছি যে আমি বিকাশে টাকা পাঠিয়েছি।</label>
+
+      <label><input type="checkbox" id="policy-agree" required> আমি <a href="#" onclick="toggleReadme(event)">নিয়মাবলি পড়েছি</a> এবং একমত।</label>
+
+      <div id="readme-content">
+        <strong>📄 অর্ডার ও কপিরাইট সংক্রান্ত ১০টি গুরুত্বপূর্ণ নিয়ম:</strong>
+        <ol>
+          <li>অর্ডার কনফার্ম হওয়ার পর সেটি ক্যানসেল করা যাবে না।</li>
+          <li>প্রয়োজনীয় তথ্য না দিলে অর্ডার দেরি হতে পারে।</li>
+          <li>ডিজিটাল প্রোডাক্ট হওয়ায় রিফান্ড নীতিমালা সীমিত।</li>
+          <li>Pendrive প্রোডাক্টে কুরিয়ার ড্যামেজের জন্য দায় নেয়া হয় না।</li>
+          <li>সকল কনটেন্ট কেবল শিক্ষামূলক উদ্দেশ্যে সরবরাহ করা হয়।</li>
+          <li>এই গ্রাফিক্স প্যাকের কোনো অংশ পুনরায় বিক্রি করা যাবে না।</li>
+          <li>গ্রাহক নিজ দায়িত্বে কপিরাইট আইন মেনে ব্যবহার করবেন।</li>
+          <li>প্রয়োজনে WhatsApp বা ফোনে যোগাযোগ করতে পারেন।</li>
+          <li>অর্ডার সম্পূর্ণ হলে ২৪ ঘণ্টার মধ্যে ডেলিভারি নিশ্চিত হয়।</li>
+          <li>সকল আইনী অধিকার সংরক্ষিত: © Esran Creative Corner</li>
+        </ol>
+      </div>
 
       <div id="payment-fields" style="margin-top:10px;">
         <label for="payment_number">যে নাম্বার থেকে পাঠিয়েছেন:</label>
-        <input type="tel" name="payment_number" required="">
+        <input type="tel" name="payment_number" required>
 
         <label for="trxid">Bkash Transaction ID:</label>
-        <input type="text" id="trxid" name="trxid" required="">
+        <input type="text" id="trxid" name="trxid" required>
       </div>
 
       <button type="submit">✅ অর্ডার কনফার্ম করুন</button>
@@ -131,7 +193,8 @@
   </form>
 
   <div class="disclaimer">
-    ⚠️ এই Graphics Pack শুধুমাত্র শিক্ষামূলক কাজে ব্যবহারের জন্য। কপিরাইট সংক্রান্ত দায়ভার গ্রাহকের।
+    ⚠️ এই Graphics Pack শুধুমাত্র শিক্ষামূলক কাজে ব্যবহারের জন্য। পুনঃবিক্রয় ও কপিরাইট লঙ্ঘন করা আইনত দণ্ডনীয়।<br>
+    <span style="display:block; margin-top: 10px;">© Esran Creative Corner</span>
   </div>
 
   <div id="thank-you">
@@ -139,6 +202,8 @@
     <p>আপনার অর্ডার সফলভাবে সাবমিট হয়েছে।</p>
     <p>সাহায্যের জন্য কল করুন: <strong>+01518927820</strong></p>
   </div>
+
+  <div class="footer-note">Made with ❤️ by Esran Creative Corner</div>
 </section>
 
 <script>
@@ -180,28 +245,31 @@
   deliverySelect.addEventListener("change", calculateTotal);
 
   function goToStep2() {
-    const currentStep = document.getElementById("step1");
-    const inputs = currentStep.querySelectorAll("input, select, textarea");
+    const inputs = document.querySelectorAll("#step1 input, #step1 select, #step1 textarea");
     let allValid = true;
-
     inputs.forEach(input => {
       if (!input.checkValidity()) {
         input.reportValidity();
         allValid = false;
       }
     });
-
     if (allValid) {
       document.getElementById("step1").style.display = "none";
       document.getElementById("step2").style.display = "block";
     }
   }
 
+  function toggleReadme(event) {
+    event.preventDefault();
+    const readme = document.getElementById("readme-content");
+    readme.style.display = readme.style.display === "block" ? "none" : "block";
+  }
+
   document.getElementById("order-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const form = e.target;
-    if (!document.getElementById("agreement").checked) {
-      alert("দয়া করে কনফার্মেশনে টিক দিন।");
+    if (!document.getElementById("agreement").checked || !document.getElementById("policy-agree").checked) {
+      alert("দয়া করে বিকাশ কনফার্মেশন এবং নিয়মাবলিতে টিক দিন।");
       return;
     }
 
@@ -221,3 +289,6 @@
     });
   });
 </script>
+
+</body>
+</html>
