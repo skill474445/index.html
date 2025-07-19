@@ -1,260 +1,211 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Esran Creative Corner - Graphics Order Form</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
-      color: #1a1a1a;
-      margin: 0;
-      padding: 20px;
-    }
+    body { font-family: 'Segoe UI', sans-serif; background: #f9fcff; padding: 20px; color: #222; }
+    .hidden { display: none; }
     .form-step {
-      max-width: 600px;
-      margin: 20px auto;
-      background: #ffffff;
+      max-width: 650px;
+      margin: auto;
+      border: 1px solid #e0e0e0;
+      padding: 25px;
       border-radius: 12px;
-      padding: 25px 30px;
-      box-shadow: 0 8px 20px rgba(27, 31, 39, 0.05);
-      border-left: 8px solid #1d7dd6;
-    }
-    h2 {
-      color: #1d7dd6;
-      margin-bottom: 20px;
-      text-align: center;
-      font-weight: 700;
-    }
-    label {
-      display: block;
-      margin-bottom: 12px;
-      font-weight: 600;
-      color: #333;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    select {
-      width: 100%;
-      padding: 10px 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-      margin-top: 6px;
-      transition: border-color 0.3s ease;
-    }
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="tel"]:focus,
-    select:focus {
-      border-color: #1d7dd6;
-      outline: none;
-      box-shadow: 0 0 8px rgba(29, 125, 214, 0.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      background-color: #fff;
     }
     .btn {
-      display: inline-block;
-      background: #1d7dd6;
+      background: #007BFF;
       color: white;
-      padding: 12px 20px;
+      padding: 10px 18px;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 1.1rem;
       margin-top: 20px;
-      transition: background-color 0.3s ease;
     }
-    .btn:hover {
-      background: #145ea8;
-    }
-    .back-btn {
-      background: #ddd;
-      color: #333;
-      margin-right: 10px;
-    }
-    .back-btn:hover {
-      background: #bbb;
-    }
-    .hidden {
-      display: none;
-    }
-    footer {
-      text-align: center;
-      margin-top: 25px;
-      color: #666;
-      font-size: 14px;
-    }
-    .error {
-      color: #d93025;
-      font-size: 0.9rem;
-      margin-top: 6px;
-    }
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      margin-top: 15px;
-      font-weight: 600;
-    }
-    .checkbox-label input[type="checkbox"] {
-      margin-right: 10px;
-      transform: scale(1.3);
-      cursor: pointer;
-    }
-    ul, ol {
-      margin-left: 18px;
-      margin-top: 8px;
-      color: #444;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
+    .btn:hover { background: #0056b3; }
+    .back-btn { background: #ccc; color: black; margin-right: 10px; }
+    label, select, input { display: block; width: 100%; margin-bottom: 10px; }
+    select, input { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
     .blink {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #1d7dd6;
-      animation: blinkColors 1.5s infinite;
-      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      animation: blinkColors 1s infinite;
     }
     @keyframes blinkColors {
-      0% { color: #1d7dd6; }
-      25% { color: #e94560; }
-      50% { color: #f9dc5c; }
-      75% { color: #1db954; }
-      100% { color: #1d7dd6; }
+      0% { color: red; }
+      25% { color: orange; }
+      50% { color: green; }
+      75% { color: blue; }
+      100% { color: violet; }
     }
-    .price-info {
-      font-weight: 700;
-      color: #1d7dd6;
-      margin-top: 12px;
-      font-size: 1.1rem;
-    }
-    .summary-item {
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #0b3954;
-    }
-    input[type="number"] {
-      width: 100%;
-      padding: 10px 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      font-size: 1rem;
-      margin-top: 6px;
-      transition: border-color 0.3s ease;
-    }
+    footer { text-align: center; font-size: 14px; margin-top: 30px; color: #888; }
   </style>
 </head>
 <body>
 
-<!-- Step 1 -->
 <div id="step1" class="form-step">
   <h2>অর্ডার ফর্ম</h2>
-
-  <label>নাম:<input type="text" id="name" placeholder="আপনার নাম লিখুন" /></label>
-  <div id="errorName" class="error"></div>
-
-  <label>ফোন:<input type="tel" id="phone" placeholder="যেমন: 01XXXXXXXXX" /></label>
-  <div id="errorPhone" class="error"></div>
-
-  <label>ইমেইল:<input type="email" id="email" placeholder="আপনার ইমেইল লিখুন" /></label>
-  <div id="errorEmail" class="error"></div>
-
-  <label>প্যাকেজ নির্বাচন করুন:</label>
-  <select id="packType">
-    <option value="" disabled selected>প্যাকেজ নির্বাচন করুন</option>
-    <option value="graphics">শুধুমাত্র Graphics Pack - ১৫০ টাকা</option>
+  <label>নাম: <input type="text" id="name" required></label>
+  <label>ফোন: <input type="tel" id="phone" required></label>
+  <label>ইমেইল: <input type="email" id="email" required></label>
+  <label>আপনি কোন প্যাক নিতে চান?</label>
+  <select id="packType" onchange="toggleDeliveryOptions()">
+    <option value="graphics">শুধু Graphics Pack (৳150)</option>
     <option value="pendrive">Pendrive সহ Graphics Pack</option>
   </select>
-  <div id="errorPack" class="error"></div>
-
-  <div id="pendriveModels" style="display:none; margin-top: 12px;">
+  <div id="deliverySection" class="hidden">
+    <label>ডেলিভারি কোথায়?</label>
+    <select id="delivery">
+      <option value="inside">ঢাকার ভিতরে (৳80)</option>
+      <option value="outside">ঢাকার বাইরে (৳150)</option>
+      <option value="instant">Instant Delivery (৳200-350)</option>
+    </select>
     <label>Pendrive মডেল নির্বাচন করুন:</label>
     <select id="pendriveModel">
-      <option value="" disabled selected>মডেল নির্বাচন করুন</option>
-      <option value="sandisk_16" data-price="600">SanDisk 16GB - 600 টাকা</option>
-      <option value="samsung_32" data-price="850">Samsung 32GB - 850 টাকা</option>
-      <option value="kingston_64" data-price="1350">Kingston 64GB - 1350 টাকা</option>
+      <option value="Sandisk 32GB">Sandisk 32GB - ৳600</option>
+      <option value="HP 32GB">HP 32GB - ৳620</option>
+      <option value="Adata 64GB">Adata 64GB - ৳950</option>
     </select>
-    <div id="errorPendriveModel" class="error"></div>
   </div>
-
-  <div id="deliverySection" style="display:none; margin-top: 12px;">
-    <label>ডেলিভারি:</label>
-    <select id="delivery">
-      <option value="" disabled selected>ডেলিভারি নির্বাচন করুন</option>
-      <option value="inside_dhaka">ঢাকার ভিতরে</option>
-      <option value="outside_dhaka">ঢাকার বাইরে</option>
-      <option value="instant_delivery">ইন্সট্যান্ট ডেলিভারি (শুধুমাত্র ঢাকার ভিতরে)</option>
-    </select>
-    <div id="errorDelivery" class="error"></div>
-  </div>
-
-  <p class="price-info" id="totalPrice">মোট মূল্য: ০ টাকা</p>
-
-  <button class="btn" onclick="validateAndNext()">পরবর্তী ধাপে যান</button>
-
+  <label><input type="checkbox" id="agree"> আমি উপরের সকল শর্তাবলী ও এগ্রিমেন্ট পড়েছি এবং মানি।</label>
+  <button class="btn" onclick="nextStep(2)">পরবর্তী ধাপে যান</button>
   <footer>Esran Creative Corner</footer>
 </div>
 
-<!-- Step 2 -->
 <div id="step2" class="form-step hidden">
   <h2>অর্ডার সারাংশ ও সতর্কতা</h2>
-  <p><strong>আপনার তথ্য:</strong></p>
-  <div id="summary"></div>
-
-  <h4>সতর্কতা:</h4>
-  <ul>
-    <li>ভুল তথ্য দিলে অর্ডার বাতিল হতে পারে</li>
-    <li>সঠিক মোবাইল ও ইমেইল ব্যবহার করুন</li>
-    <li>বিকাশ নম্বর: 01641138934</li>
-  </ul>
-
+  <p id="summary"></p>
   <h4>ইউজার এগ্রিমেন্ট (নৈতিক দিক):</h4>
-  <label class="checkbox-label">
-    <input type="checkbox" id="userAgreement" />
-    আমি উপরোক্ত শর্তাবলী পড়ে সম্মত।
-  </label>
-  <div id="errorAgreement" class="error"></div>
-
-  <button class="btn back-btn" onclick="showStep(1)">← আগের ধাপে যান</button>
-  <button class="btn" onclick="goNextStep()">পরবর্তী ধাপে যান</button>
-
+  <ol>
+    <li>সততার সাথে কাজ করবেন</li>
+    <li>অবৈধভাবে কন্টেন্ট ব্যবহার করবেন না</li>
+    <li>গ্রাফিক্স অন্যের সাথে শেয়ার করবেন না</li>
+    <li>ক্লায়েন্টের চাহিদা অনুযায়ী কাজ করবেন</li>
+    <li>নিয়মিত অনুশীলন করবেন</li>
+    <li>সময়কে গুরুত্ব দিবেন</li>
+    <li>সততার সঙ্গে মার্কেটপ্লেসে কাজ করবেন</li>
+    <li>নিজেকে দক্ষ করে তুলবেন</li>
+    <li>Esran Creative Corner কে শ্রদ্ধা জানাবেন</li>
+    <li>শেখা থামাবেন না</li>
+  </ol>
+  <button class="btn back-btn" onclick="nextStep(1)">← আগের ধাপে যান</button>
+  <button class="btn" onclick="handleStep2()">পরবর্তী ধাপে যান</button>
   <footer>Esran Creative Corner</footer>
 </div>
 
-<!-- Step 3 -->
 <div id="step3" class="form-step hidden">
-  <h2>পেমেন্ট করুন (Pendrive সহ অর্ডার)</h2>
-
-  <p>আপনি Pendrive সহ Graphics Pack অর্ডার করেছেন। নিচের বিকাশ নম্বরে পেমেন্ট সম্পন্ন করুন:</p>
-  <h3 style="color: #1d7dd6;">বিকাশ নম্বর: 01641138934</h3>
-
-  <label>বিকাশ থেকে পাঠানো নম্বর (যে নম্বর থেকে টাকা পাঠিয়েছেন):</label>
-  <input type="tel" id="bkashSender" placeholder="যেমন: 01XXXXXXXXX" />
-  <div id="errorBkashSender" class="error"></div>
-
-  <label>Transaction ID (ট্রানজেকশন আইডি):</label>
-  <input type="text" id="transactionId" placeholder="যেমন: ABC123XYZ" />
-  <div id="errorTransactionId" class="error"></div>
-
-  <button class="btn back-btn" onclick="showStep(2)">← আগের ধাপে যান</button>
-  <button class="btn" onclick="validatePayment()">পেমেন্ট সম্পন্ন হয়েছে</button>
-
+  <h2>পেমেন্ট করুন</h2>
+  <p>আপনার মোট Payable Amount: <strong id="totalPrice"></strong></p>
+  <p><strong>Graphics Pack:</strong> ৳150</p>
+  <p id="pendriveDetails" class="hidden"></p>
+  <p><strong>বিকাশ নম্বর:</strong> 01641138934</p>
+  <label>আপনার বিকাশ নম্বর: <input type="text" id="bkashNumber" required></label>
+  <label>Transaction ID: <input type="text" id="txnId" required></label>
+  <button class="btn back-btn" onclick="nextStep(2)">← আগের ধাপে যান</button>
+  <button class="btn" onclick="nextStep(4)">পেমেন্ট সম্পন্ন হয়েছে</button>
   <footer>Esran Creative Corner</footer>
 </div>
 
-<!-- Step 4 -->
 <div id="step4" class="form-step hidden">
   <h2 class="blink">অভিনন্দন!</h2>
-  <p>
-    Esran Creative Corner এর পক্ষ থেকে আপনাকে আন্তরিক অভিনন্দন।<br />
-    আপনি এখন আরও দক্ষ, আত্মনির্ভরশীল এবং প্রফেশনাল হবার পথে এগিয়ে গেলেন।<br />
-    এই Graphics Pack আপনার ডিজিটাল ক্যারিয়ারে নতুন মাত্রা যোগ করবে —<br />
-    নিয়মিত অনুশীলন ও প্র্যাকটিসের মাধ্যমে আপনি আরও দক্ষ ও প্রতিষ্ঠিত হতে পারবেন।
-  </p>
+  <div id="congratsMessage"></div>
+  <footer>Esran Creative Corner</footer>
+</div>
 
-  <h4>সফল হবার জন্য ১০টি গুরুত্বপূর্ণ বার্তা:</h4>
-  <ol>
+<script>
+function toggleDeliveryOptions() {
+  const packType = document.getElementById("packType").value;
+  const deliverySection = document.getElementById("deliverySection");
+  deliverySection.classList.toggle('hidden', packType !== 'pendrive');
+}
+
+function nextStep(step) {
+  if (step === 2) {
+    if (!document.getElementById("name").value ||
+        !document.getElementById("phone").value ||
+        !document.getElementById("email").value ||
+        !document.getElementById("agree").checked) {
+      alert("অনুগ্রহ করে সকল ফিল্ড পূরণ করুন ও এগ্রিমেন্টে টিক দিন।");
+      return;
+    }
+    fillSummary();
+  }
+
+  if (step === 3) {
+    calculateTotal();
+  }
+
+  if (step === 4) {
+    showFinalMessage();
+  }
+
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('step' + i).classList.add('hidden');
+  }
+  document.getElementById('step' + step).classList.remove('hidden');
+}
+
+function handleStep2() {
+  nextStep(3);
+}
+
+function fillSummary() {
+  const pack = document.getElementById("packType").value;
+  let summary = `নাম: ${document.getElementById("name").value}<br>
+  ফোন: ${document.getElementById("phone").value}<br>
+  ইমেইল: ${document.getElementById("email").value}<br>
+  প্যাক: ${pack === 'graphics' ? 'শুধু Graphics Pack' : 'Pendrive সহ Graphics Pack'}<br>`;
+
+  if (pack === 'pendrive') {
+    summary += `ডেলিভারি: ${document.getElementById("delivery").value}<br>
+    Pendrive: ${document.getElementById("pendriveModel").value}`;
+  }
+
+  document.getElementById("summary").innerHTML = summary;
+}
+
+function calculateTotal() {
+  let total = 150;
+  const pack = document.getElementById("packType").value;
+  const pendrivePrice = {
+    "Sandisk 32GB": 600,
+    "HP 32GB": 620,
+    "Adata 64GB": 950
+  };
+
+  if (pack === 'pendrive') {
+    const delivery = document.getElementById("delivery").value;
+    const model = document.getElementById("pendriveModel").value;
+    total += pendrivePrice[model];
+    if (delivery === 'inside') total += 80;
+    else if (delivery === 'outside') total += 150;
+    else if (delivery === 'instant') total += 250; // average instant
+
+    document.getElementById("pendriveDetails").classList.remove('hidden');
+    document.getElementById("pendriveDetails").innerHTML = `পেনড্রাইভ: ${model} - ৳${pendrivePrice[model]}<br>ডেলিভারি চার্জ: ${delivery}`;
+  }
+
+  document.getElementById("totalPrice").textContent = `৳${total}`;
+}
+
+function showFinalMessage() {
+  const pack = document.getElementById("packType").value;
+  const delivery = document.getElementById("delivery").value;
+  let msg = "<p>Esran Creative Corner এর পক্ষ থেকে আপনাকে আন্তরিক অভিনন্দন।<br>
+  আপনি এখন আরও দক্ষ, আত্মনির্ভরশীল এবং প্রফেশনাল হবার পথে এগিয়ে গেলেন।</p>";
+
+  if (pack === 'graphics') {
+    msg += `<p>আপনার অর্ডার ২৪ ঘন্টার মধ্যে আপনার ইমেইলে পাঠিয়ে দেয়া হবে। ধন্যবাদ।</p>`;
+  } else {
+    msg += `<p>আপনার অর্ডার ${delivery === 'instant' ? 'আজকের মধ্যেই' : '২ থেকে ৩ দিনের মধ্যে'} পৌঁছে যাবে।<br>
+    অনুগ্রহ করে মোট পরিমাণ টাকা প্রস্তুত রাখুন।</p>`;
+  }
+
+  msg += `<h4>সফল হবার জন্য ১০টি প্রেরণামূলক বার্তা:</h4>
+  <ul>
     <li>সর্বদা শিখতে থাকুন</li>
     <li>নিজেকে চ্যালেঞ্জ করুন</li>
     <li>সময়কে গুরুত্ব দিন</li>
@@ -265,230 +216,10 @@
     <li>ভুল থেকে শিখুন</li>
     <li>পরিশ্রমকে সঙ্গী করুন</li>
     <li>স্বপ্ন দেখুন এবং বাস্তবায়ন করুন</li>
-  </ol>
+  </ul>`;
 
-  <footer>Esran Creative Corner</footer>
-</div>
-
-<script>
-  // Elements
-  const step1 = document.getElementById('step1');
-  const step2 = document.getElementById('step2');
-  const step3 = document.getElementById('step3');
-  const step4 = document.getElementById('step4');
-
-  const nameInput = document.getElementById('name');
-  const phoneInput = document.getElementById('phone');
-  const emailInput = document.getElementById('email');
-  const packSelect = document.getElementById('packType');
-  const pendriveModelsDiv = document.getElementById('pendriveModels');
-  const pendriveSelect = document.getElementById('pendriveModel');
-  const deliverySection = document.getElementById('deliverySection');
-  const deliverySelect = document.getElementById('delivery');
-  const totalPriceDisplay = document.getElementById('totalPrice');
-  const summaryDiv = document.getElementById('summary');
-  const userAgreementCheckbox = document.getElementById('userAgreement');
-
-  // Error fields
-  const errorName = document.getElementById('errorName');
-  const errorPhone = document.getElementById('errorPhone');
-  const errorEmail = document.getElementById('errorEmail');
-  const errorPack = document.getElementById('errorPack');
-  const errorPendriveModel = document.getElementById('errorPendriveModel');
-  const errorDelivery = document.getElementById('errorDelivery');
-  const errorAgreement = document.getElementById('errorAgreement');
-  const errorBkashSender = document.getElementById('errorBkashSender');
-  const errorTransactionId = document.getElementById('errorTransactionId');
-
-  // Payment inputs
-  const bkashSenderInput = document.getElementById('bkashSender');
-  const transactionIdInput = document.getElementById('transactionId');
-
-  // Prices & Fees
-  const graphicsPackPrice = 150;
-  const deliveryFees = {
-    inside_dhaka: 80,
-    outside_dhaka: 150,
-    instant_delivery_min: 200,
-    instant_delivery_max: 350,
-  };
-
-  // Show/hide pendrive models and delivery based on pack selection
-  packSelect.addEventListener('change', () => {
-    if (packSelect.value === 'pendrive') {
-      pendriveModelsDiv.style.display = 'block';
-      deliverySection.style.display = 'block';
-    } else if (packSelect.value === 'graphics') {
-      pendriveModelsDiv.style.display = 'none';
-      pendriveSelect.value = '';
-      deliverySection.style.display = 'none';
-      deliverySelect.value = '';
-      errorPendriveModel.innerText = '';
-      errorDelivery.innerText = '';
-    } else {
-      pendriveModelsDiv.style.display = 'none';
-      deliverySection.style.display = 'none';
-    }
-    updatePrice();
-  });
-
-  pendriveSelect.addEventListener('change', updatePrice);
-  deliverySelect.addEventListener('change', updatePrice);
-
-  // Calculate and update total price
-  function updatePrice() {
-    let total = 0;
-    if (packSelect.value === 'graphics') {
-      total = graphicsPackPrice;
-    } else if (packSelect.value === 'pendrive') {
-      total = graphicsPackPrice;
-      if (pendriveSelect.value) {
-        const selectedOption = pendriveSelect.options[pendriveSelect.selectedIndex];
-        const pendrivePrice = Number(selectedOption.getAttribute('data-price')) || 0;
-        total += pendrivePrice;
-      }
-      // Add delivery fee if selected
-      if (deliverySelect.value === 'inside_dhaka') {
-        total += deliveryFees.inside_dhaka;
-      } else if (deliverySelect.value === 'outside_dhaka') {
-        total += deliveryFees.outside_dhaka;
-      } else if (deliverySelect.value === 'instant_delivery') {
-        // Random between min and max
-        const randFee = Math.floor(
-          deliveryFees.instant_delivery_min +
-            Math.random() * (deliveryFees.instant_delivery_max - deliveryFees.instant_delivery_min)
-        );
-        total += randFee;
-      }
-    }
-    totalPriceDisplay.innerText = `মোট মূল্য: ${total} টাকা`;
-  }
-
-  // Show specific step only
-  function showStep(step) {
-    step1.classList.add('hidden');
-    step2.classList.add('hidden');
-    step3.classList.add('hidden');
-    step4.classList.add('hidden');
-
-    if (step === 1) step1.classList.remove('hidden');
-    else if (step === 2) step2.classList.remove('hidden');
-    else if (step === 3) step3.classList.remove('hidden');
-    else if (step === 4) step4.classList.remove('hidden');
-  }
-
-  // Validation helpers
-  function isValidPhone(phone) {
-    return /^01[0-9]{9}$/.test(phone);
-  }
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  // Validate step1 form
-  function validateAndNext() {
-    let valid = true;
-
-    errorName.innerText = '';
-    errorPhone.innerText = '';
-    errorEmail.innerText = '';
-    errorPack.innerText = '';
-    errorPendriveModel.innerText = '';
-    errorDelivery.innerText = '';
-
-    if (!nameInput.value.trim()) {
-      errorName.innerText = 'অনুগ্রহ করে নাম লিখুন।';
-      valid = false;
-    }
-    if (!phoneInput.value.trim() || !isValidPhone(phoneInput.value.trim())) {
-      errorPhone.innerText = 'সঠিক মোবাইল নম্বর দিন (যেমন: 01XXXXXXXXX)।';
-      valid = false;
-    }
-    if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
-      errorEmail.innerText = 'সঠিক ইমেইল দিন।';
-      valid = false;
-    }
-    if (!packSelect.value) {
-      errorPack.innerText = 'প্যাকেজ নির্বাচন করুন।';
-      valid = false;
-    }
-    if (packSelect.value === 'pendrive' && !pendriveSelect.value) {
-      errorPendriveModel.innerText = 'পেনড্রাইভ মডেল নির্বাচন করুন।';
-      valid = false;
-    }
-    if (packSelect.value === 'pendrive' && !deliverySelect.value) {
-      errorDelivery.innerText = 'ডেলিভারি নির্বাচন করুন।';
-      valid = false;
-    }
-
-    if (!valid) return;
-
-    fillSummary();
-    showStep(2);
-  }
-
-  // Fill order summary in step 2
-  function fillSummary() {
-    let packText = '';
-    if (packSelect.value === 'graphics') {
-      packText = 'শুধুমাত্র Graphics Pack (১৫০ টাকা)';
-    } else if (packSelect.value === 'pendrive') {
-      const pendriveOption = pendriveSelect.options[pendriveSelect.selectedIndex];
-      packText = `Pendrive সহ Graphics Pack (${pendriveOption.text})`;
-    }
-    let deliveryText = '';
-    if (packSelect.value === 'pendrive') {
-      const deliveryOption = deliverySelect.options[deliverySelect.selectedIndex];
-      deliveryText = deliveryOption ? deliveryOption.text : '';
-    }
-
-    summaryDiv.innerHTML = `
-      <p class="summary-item">নাম: ${nameInput.value.trim()}</p>
-      <p class="summary-item">ফোন: ${phoneInput.value.trim()}</p>
-      <p class="summary-item">ইমেইল: ${emailInput.value.trim()}</p>
-      <p class="summary-item">প্যাকেজ: ${packText}</p>
-      ${packSelect.value === 'pendrive' ? `<p class="summary-item">ডেলিভারি: ${deliveryText}</p>` : ''}
-      <p class="summary-item" style="font-weight:bold; color:#1d7dd6;">${totalPriceDisplay.innerText}</p>
-    `;
-  }
-
-  // Step 2 next button with agreement validation
-  function goNextStep() {
-    errorAgreement.innerText = '';
-    if (!userAgreementCheckbox.checked) {
-      errorAgreement.innerText = 'আপনাকে অবশ্যই শর্তাবলীতে সম্মতি দিতে হবে।';
-      return;
-    }
-
-    if (packSelect.value === 'pendrive') {
-      showStep(3);
-    } else {
-      alert('শুধুমাত্র গ্রাফিক প্যাক অর্ডার করার জন্য, প্যাকটি আপনার ইমেইলে পাঠানো হবে।');
-      showStep(4);
-    }
-  }
-
-  // Validate payment info and go to success page
-  function validatePayment() {
-    errorBkashSender.innerText = '';
-    errorTransactionId.innerText = '';
-
-    if (!bkashSenderInput.value.trim() || !isValidPhone(bkashSenderInput.value.trim())) {
-      errorBkashSender.innerText = 'বিকাশ থেকে পাঠানো নম্বর সঠিক দিন (যেমন: 01XXXXXXXXX)।';
-      return;
-    }
-    if (!transactionIdInput.value.trim()) {
-      errorTransactionId.innerText = 'Transaction ID দিন।';
-      return;
-    }
-
-    alert('আপনার পেমেন্ট সফলভাবে গ্রহণ করা হয়েছে। ধন্যবাদ!');
-    showStep(4);
-  }
-
-  // Initial price update
-  updatePrice();
+  document.getElementById("congratsMessage").innerHTML = msg;
+}
 </script>
-
 </body>
 </html>
