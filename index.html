@@ -1,189 +1,439 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Esran Creative Corner - Graphics Order Form</title>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #fff8f0; padding: 20px; color: #222; }
-    .hidden { display: none; }
-    .form-step { max-width: 650px; margin: auto; border: 1px solid #f0c987; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.08); background: #fff; }
-    .btn { background: #ff9800; color: white; padding: 10px 16px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
-    .btn:hover { background: #e68900; }
-    .back-btn { background: #ccc; color: black; margin-right: 10px; }
-    .blink {
-      font-size: 2rem;
-      font-weight: bold;
-      animation: blinkColors 1s infinite;
-    }
-    @keyframes blinkColors {
-      0% { color: red; }
-      25% { color: orange; }
-      50% { color: green; }
-      75% { color: blue; }
-      100% { color: violet; }
-    }
-    label, select, input[type=text], input[type=tel], input[type=email] {
-      display: block;
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #ddd;
-    }
-    footer { text-align: center; font-size: 14px; margin-top: 30px; color: #888; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Esran Creative Corner - Graphics Order Form</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4ff;
+    margin: 0; padding: 20px;
+    color: #222;
+  }
+  .form-step {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(0, 0, 128, 0.15);
+    border: 2px solid #007bff;
+  }
+  h2 {
+    text-align: center;
+    color: #004aad;
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 600;
+    color: #003d99;
+  }
+  input[type=text], input[type=tel], input[type=email], select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1.8px solid #7da7ff;
+    background-color: #eef5ff;
+    font-size: 16px;
+    outline-offset: 2px;
+    transition: border-color 0.3s;
+  }
+  input[type=text]:focus, input[type=tel]:focus, input[type=email]:focus, select:focus {
+    border-color: #0052cc;
+  }
+  .btn {
+    background-color: #0052cc;
+    color: white;
+    padding: 14px 0;
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    margin-top: 25px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s;
+  }
+  .btn:hover {
+    background-color: #003d99;
+  }
+  .btn.back-btn {
+    background: #ddd;
+    color: #444;
+    width: auto;
+    padding: 10px 20px;
+    margin-right: 15px;
+  }
+  .btn.back-btn:hover {
+    background: #bbb;
+  }
+  .hidden {
+    display: none;
+  }
+  .blink {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    color: #007bff;
+    animation: blinkColors 2s infinite;
+    margin-bottom: 15px;
+  }
+  @keyframes blinkColors {
+    0%, 100% { color: #007bff; }
+    25% { color: #00aaff; }
+    50% { color: #0056b3; }
+    75% { color: #3399ff; }
+  }
+  ul, ol {
+    padding-left: 20px;
+  }
+  ul li, ol li {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #004aad;
+  }
+  .checkbox-container {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #003d99;
+  }
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #888;
+  }
+  .price-tag {
+    font-weight: 700;
+    color: #0066ff;
+  }
+</style>
 </head>
 <body>
 
+<!-- Step 1: User Info + Pack Selection + Delivery -->
 <div id="step1" class="form-step">
   <h2>অর্ডার ফর্ম</h2>
-  <label>নাম: <input type="text" id="name" required></label>
-  <label>ফোন: <input type="tel" id="phone" required></label>
-  <label>ইমেইল: <input type="email" id="email" required></label>
+  <label for="name">নাম:</label>
+  <input type="text" id="name" placeholder="আপনার নাম লিখুন" />
 
-  <label>আপনি কোন প্যাক নিতে চান?</label>
+  <label for="phone">মোবাইল নম্বর:</label>
+  <input type="tel" id="phone" placeholder="০১৭xxxxxxxx" />
+
+  <label for="email">ইমেইল:</label>
+  <input type="email" id="email" placeholder="আপনার ইমেইল লিখুন" />
+
+  <label for="packType">আপনি কোন প্যাক নিতে চান?</label>
   <select id="packType">
-    <option value="graphics">শুধু Graphics Pack</option>
-    <option value="pendrive">Pendrive সহ Graphics Pack</option>
+    <option value="">-- প্যাক নির্বাচন করুন --</option>
+    <option value="graphics">শুধু Graphics Pack (৳১৫০)</option>
+    <option value="pendrive">Pendrive সহ Graphics Pack (৳১৫০+)</option>
   </select>
 
-  <div id="pendriveOptions" class="hidden">
-    <label>Pendrive মডেল ও দাম:</label>
+  <!-- Pendrive Model & Price -->
+  <div id="pendriveModelContainer" style="display:none;">
+    <label for="pendriveModel">Pendrive মডেল বেছে নিন:</label>
     <select id="pendriveModel">
-      <option value="16GB">16GB — ৳350</option>
-      <option value="32GB">32GB — ৳500</option>
-      <option value="64GB">64GB — ৳800</option>
+      <option value="">-- মডেল নির্বাচন করুন --</option>
+      <option value="sandisk" data-price="800">SanDisk Ultra Flair 128GB (৳৮০০)</option>
+      <option value="hp" data-price="750">HP x765w 128GB (৳৭৫০)</option>
+      <option value="transcend" data-price="850">Transcend JetFlash 128GB (৳৮৫০)</option>
+      <option value="samsung" data-price="900">Samsung BAR Plus 128GB (৳৯০০)</option>
     </select>
   </div>
 
-  <label>ডেলিভারি কোথায়?</label>
-  <select id="delivery">
-    <option>ঢাকার ভিতরে</option>
-    <option>ঢাকার বাইরে</option>
-    <option>Instant Delivery</option>
+  <!-- Delivery Options -->
+  <label for="deliveryType">ডেলিভারি কোথায়?</label>
+  <select id="deliveryType" disabled>
+    <option value="">-- ডেলিভারি নির্বাচন করুন --</option>
+    <option value="inside_dhaka" data-price="80">ঢাকার ভিতরে (৳৮০)</option>
+    <option value="outside_dhaka" data-price="150">ঢাকার বাইরে (৳১৫০)</option>
+    <option value="instant" data-price="200">ইনস্ট্যান্ট ডেলিভারি (শুধু ঢাকার ভিতরে, ৳২০০ থেকে শুরু)</option>
   </select>
 
-  <button class="btn" onclick="validateStep1()">পরবর্তী ধাপে যান</button>
+  <p style="margin-top:10px; color:#555; font-size:14px;">* ইন্সট্যান্ট ডেলিভারির জন্য অতিরিক্ত চার্জ ২০০ থেকে ৩৫০ টাকা পর্যন্ত হতে পারে।</p>
+
+  <!-- User Agreement -->
+  <div class="checkbox-container">
+    <input type="checkbox" id="agree" /> <label for="agree">আমি শর্তাবলী ও সতর্কতা মেনে নিচ্ছি</label>
+    <div id="agreeError" class="error hidden">আপনাকে শর্তাবলী মেনে নিতে হবে।</div>
+  </div>
+
+  <!-- Total Price Display -->
+  <p style="margin-top: 15px; font-size: 18px;">
+    মোট মূল্য: <span class="price-tag" id="totalPrice">৳০</span>
+  </p>
+
+  <button class="btn" onclick="validateAndNext()">পরবর্তী ধাপে যান</button>
   <footer>Esran Creative Corner</footer>
 </div>
 
+<!-- Step 2: Order Summary + Important Points + Back/Next -->
 <div id="step2" class="form-step hidden">
   <h2>অর্ডার সারাংশ ও সতর্কতা</h2>
   <p><strong>আপনার তথ্য:</strong></p>
-  <p id="summary"></p>
+  <p id="orderSummary" style="font-size:16px; color:#004aad;"></p>
 
-  <h4>অর্ডার সম্পর্কিত ১০টি গুরুত্বপূর্ণ নির্দেশনা:</h4>
+  <h3>সতর্কতা:</h3>
+  <ul>
+    <li>ভুল তথ্য দিলে অর্ডার বাতিল হতে পারে।</li>
+    <li>সঠিক মোবাইল নম্বর ও ইমেইল ব্যবহার করুন।</li>
+    <li>আগামী ২৪ ঘণ্টার মধ্যে পেমেন্ট নিশ্চিত করুন।</li>
+  </ul>
+
+  <h3>ইউজার এগ্রিমেন্ট ও গুরুত্বপূর্ণ নির্দেশনা:</h3>
   <ol>
-    <li>তথ্য সঠিকভাবে দিন, ভুলে অর্ডার বাতিল হতে পারে</li>
-    <li>গ্রাফিক্সের কোনো কনটেন্ট বিক্রি বা শেয়ার করবেন না</li>
-    <li>আপনি কেবলমাত্র নিজস্ব ব্যবহার অথবা ক্লায়েন্টের কাজে ব্যবহার করতে পারবেন</li>
-    <li>এই ফাইল অন্যের সাথে ভাগ করা নিষেধ</li>
-    <li>Esran Creative Corner এর অনুমতি ছাড়া কোথাও আপলোড করবেন না</li>
-    <li>এই প্যাক থেকে শিখে নিজের কাজ উন্নত করুন</li>
-    <li>নিজেকে একজন ভালো ফ্রিল্যান্সার হিসেবে গড়ুন</li>
-    <li>আপনার দায়িত্ব আপনি নেবেন, কপিরাইট ভাঙলে আমরা দায়ী নই</li>
-    <li>ভবিষ্যতের যেকোনো আপডেট পেতে ইমেইল ঠিক রাখুন</li>
-    <li>আপনার মতামত আমাদের জানাতে ভুলবেন না!</li>
+    <li>অর্ডার একবার কনফার্ম করলে বাতিল হবে না।</li>
+    <li>পেনড্রাইভ ছাড়া শুধুমাত্র গ্রাফিক প্যাক এর ক্ষেত্রে বিকাশে পেমেন্ট করুন।</li>
+    <li>পেনড্রাইভসহ অর্ডারে ক্যাশ অন ডেলিভারি সুবিধা পাবেন।</li>
+    <li>সঠিক তথ্য প্রদান করুন ডেলিভারির জন্য।</li>
+    <li>অর্ডার ডেলিভারির সময় ২-৩ দিন লাগতে পারে পেনড্রাইভ সহ প্যাকের ক্ষেত্রে।</li>
+    <li>শুধুমাত্র গ্রাফিক প্যাক এর জন্য ২৪ ঘণ্টার মধ্যে ইমেইলে প্যাক পাঠানো হবে।</li>
+    <li>পেমেন্টের তথ্য নিরাপদভাবে সংরক্ষণ করা হবে।</li>
+    <li>অন্য কারো সঙ্গে ফাইল শেয়ার করবেন না।</li>
+    <li>সততার সঙ্গে কাজ করুন ও নিয়মিত অনুশীলন চালিয়ে যান।</li>
+    <li>Esran Creative Corner এর প্রতি কৃতজ্ঞতা প্রকাশ করবেন।</li>
   </ol>
 
-  <label><input type="checkbox" id="agree"> আমি উপরের নিয়ম ও শর্তাবলী পড়েছি এবং সম্মত।</label>
-  <br>
-  <button class="btn back-btn" onclick="nextStep(1)">← আগের ধাপে যান</button>
-  <button class="btn" onclick="handleStep2()">পরবর্তী ধাপে যান</button>
+  <button class="btn back-btn" onclick="goBackStep(1)">← আগের ধাপে যান</button>
+  <button class="btn" onclick="goNextStep()">পরবর্তী ধাপে যান</button>
   <footer>Esran Creative Corner</footer>
 </div>
 
+<!-- Step 3: Payment (if Pendrive) -->
 <div id="step3" class="form-step hidden">
   <h2>পেমেন্ট করুন</h2>
   <p>আপনি Pendrive সহ Graphics Pack অর্ডার করেছেন। নিচের বিকাশ নম্বরে পেমেন্ট সম্পন্ন করুন:</p>
   <h3 style="color: green;">বিকাশ নম্বর: 01641138934</h3>
-  <p>পেমেন্ট করার পর আমাদের ফেসবুক পেজে মেসেজ দিয়ে Transaction ID দিন।</p>
-  <button class="btn back-btn" onclick="nextStep(2)">← আগের ধাপে যান</button>
-  <button class="btn" onclick="nextStep(4)">পেমেন্ট সম্পন্ন হয়েছে</button>
+  <p>পেমেন্ট করার পর নিচের ফর্মে Transaction ID এবং পাঠানো নম্বর দিন:</p>
+
+  <label for="bkashNumber">বিকাশ নাম্বার (যে নম্বর থেকে পাঠিয়েছেন):</label>
+  <input type="text" id="bkashNumber" placeholder="০১৭xxxxxxxx" />
+
+  <label for="trxId">Transaction ID (Trx ID):</label>
+  <input type="text" id="trxId" placeholder="আপনার Trx ID লিখুন" />
+
+  <div id="paymentError" class="error hidden">সব তথ্য সঠিকভাবে দিন।</div>
+
+  <button class="btn back-btn" onclick="goBackStep(2)">← আগের ধাপে যান</button>
+  <button class="btn" onclick="confirmOrder()">পেমেন্ট সম্পন্ন করেছি</button>
   <footer>Esran Creative Corner</footer>
 </div>
 
+<!-- Step 4: Congratulations -->
 <div id="step4" class="form-step hidden">
   <h2 class="blink">অভিনন্দন!</h2>
-  <p>Esran Creative Corner এর পক্ষ থেকে আপনাকে আন্তরিক অভিনন্দন।<br>
-  আপনি এখন আরও দক্ষ, আত্মনির্ভরশীল এবং প্রফেশনাল হবার পথে এগিয়ে গেলেন।<br>
-  এই Graphics Pack আপনার ডিজিটাল ক্যারিয়ারে নতুন মাত্রা যোগ করবে —<br>
-  নিয়মিত অনুশীলন ও প্র্যাকটিসের মাধ্যমে আপনি আরও দক্ষ ও প্রতিষ্ঠিত হতে পারবেন।</p>
-  <h4>সফল হবার জন্য ১০টি প্রেরণামূলক বার্তা:</h4>
+  <p>Esran Creative Corner এর পক্ষ থেকে আপনাকে আন্তরিক অভিনন্দন।</p>
+  <p>আপনি সফলভাবে অর্ডার সম্পন্ন করেছেন।</p>
+  <p>
+    আপনার অর্ডার অনুযায়ী:
+  </p>
   <ul>
-    <li>সর্বদা শিখতে থাকুন</li>
-    <li>নিজেকে চ্যালেঞ্জ করুন</li>
-    <li>সময়কে গুরুত্ব দিন</li>
-    <li>নিজের কাজের প্রতি গর্ববোধ করুন</li>
-    <li>ছোট কাজকেও শ্রদ্ধা করুন</li>
-    <li>সততার সঙ্গে কাজ করুন</li>
-    <li>গ্রাহকের চাহিদা বুঝুন</li>
-    <li>ভুল থেকে শিখুন</li>
-    <li>পরিশ্রমকে সঙ্গী করুন</li>
-    <li>স্বপ্ন দেখুন এবং বাস্তবায়ন করুন</li>
+    <li><strong>শুধু Graphics Pack:</strong> ২৪ ঘণ্টার মধ্যে আপনার ইমেইলে প্যাক পাঠানো হবে।</li>
+    <li><strong>Pendrive সহ প্যাক:</strong> ২-৩ কার্যদিবসের মধ্যে আপনার বাড়িতে ডেলিভারি দেওয়া হবে।</li>
   </ul>
+  <p>আপনার দক্ষতা উন্নয়নে আমাদের প্যাক সহায়ক হবে — শুভকামনা রইল!</p>
   <footer>Esran Creative Corner</footer>
 </div>
 
 <script>
-function nextStep(step) {
-  for (let i = 1; i <= 4; i++) {
-    document.getElementById('step' + i).classList.add('hidden');
+  // Helper for showing/hiding steps
+  function showStep(stepNum) {
+    const totalSteps = 4;
+    for (let i=1; i<=totalSteps; i++) {
+      document.getElementById('step'+i).classList.add('hidden');
+    }
+    document.getElementById('step'+stepNum).classList.remove('hidden');
   }
-  document.getElementById('step' + step).classList.remove('hidden');
-}
 
-function validateStep1() {
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const packType = document.getElementById("packType").value;
-  const delivery = document.getElementById("delivery").value;
+  // Show/hide pendrive options and enable delivery select
+  const packSelect = document.getElementById('packType');
+  const pendriveModelContainer = document.getElementById('pendriveModelContainer');
+  const pendriveModelSelect = document.getElementById('pendriveModel');
+  const deliverySelect = document.getElementById('deliveryType');
 
-  if (!name || !phone || !email || !packType || !delivery) {
-    alert("সব তথ্য পূরণ করুন।");
-    return;
+  packSelect.addEventListener('change', () => {
+    if (packSelect.value === 'pendrive') {
+      pendriveModelContainer.style.display = 'block';
+      deliverySelect.disabled = false;
+    } else if (packSelect.value === 'graphics') {
+      pendriveModelContainer.style.display = 'none';
+      pendriveModelSelect.value = '';
+      deliverySelect.disabled = false;
+    } else {
+      pendriveModelContainer.style.display = 'none';
+      pendriveModelSelect.value = '';
+      deliverySelect.disabled = true;
+      deliverySelect.value = '';
+    }
+    updatePrice();
+  });
+
+  pendriveModelSelect.addEventListener('change', () => {
+    updatePrice();
+  });
+
+  deliverySelect.addEventListener('change', () => {
+    updatePrice();
+  });
+
+  // Update total price based on selections
+  function updatePrice() {
+    let total = 0;
+    const basePrice = 150; // graphics pack price
+
+    if (packSelect.value === 'graphics') {
+      total = basePrice;
+    } else if (packSelect.value === 'pendrive') {
+      total = basePrice;
+      // add pendrive price
+      let pendrivePrice = 0;
+      const option = pendriveModelSelect.options[pendriveModelSelect.selectedIndex];
+      if (option && option.dataset.price) {
+        pendrivePrice = parseInt(option.dataset.price);
+      }
+      total += pendrivePrice;
+    }
+
+    // add delivery price
+    const deliveryOption = deliverySelect.options[deliverySelect.selectedIndex];
+    if (deliveryOption && deliveryOption.dataset.price) {
+      let deliveryPrice = parseInt(deliveryOption.dataset.price);
+      // Instant delivery can vary 200-350, show min 200 here, real may be more
+      if (deliverySelect.value === 'instant') {
+        // For demo just show 200; real price may vary
+        deliveryPrice = 200;
+      }
+      total += deliveryPrice;
+    }
+    document.getElementById('totalPrice').textContent = '৳' + total;
   }
-  fillSummary();
-  nextStep(2);
-}
 
-function handleStep2() {
-  const agree = document.getElementById("agree").checked;
-  if (!agree) {
-    alert("আপনাকে শর্তাবলীতে সম্মত হতে হবে।");
-    return;
+  // Validate Step 1 and move to Step 2
+  function validateAndNext() {
+    clearErrors();
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const pack = packSelect.value;
+    const pendriveModel = pendriveModelSelect.value;
+    const delivery = deliverySelect.value;
+    const agree = document.getElementById('agree').checked;
+    let valid = true;
+
+    if (!name) {
+      alert('নাম লিখুন');
+      valid = false;
+    }
+    else if (!phone.match(/^(01[3-9]\d{8})$/)) {
+      alert('সঠিক মোবাইল নম্বর লিখুন (যেমন: 017xxxxxxxx)');
+      valid = false;
+    }
+    else if (!email.match(/^\S+@\S+\.\S+$/)) {
+      alert('সঠিক ইমেইল দিন');
+      valid = false;
+    }
+    else if (pack !== 'graphics' && pack !== 'pendrive') {
+      alert('অনুগ্রহ করে প্যাক নির্বাচন করুন');
+      valid = false;
+    }
+    else if (pack === 'pendrive' && !pendriveModel) {
+      alert('অনুগ্রহ করে Pendrive মডেল নির্বাচন করুন');
+      valid = false;
+    }
+    else if (!delivery) {
+      alert('অনুগ্রহ করে ডেলিভারি টাইপ নির্বাচন করুন');
+      valid = false;
+    }
+    else if (!agree) {
+      document.getElementById('agreeError').classList.remove('hidden');
+      valid = false;
+    }
+
+    if (valid) {
+      fillSummary();
+      showStep(2);
+    }
   }
-  const pack = document.getElementById("packType").value;
-  if (pack === 'pendrive') {
-    nextStep(3);
-  } else {
-    nextStep(4);
+
+  // Fill summary info on step 2
+  function fillSummary() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const packText = packSelect.options[packSelect.selectedIndex].text;
+    const pendriveText = pendriveModelSelect.options[pendriveModelSelect.selectedIndex]?.text || '';
+    const deliveryText = deliverySelect.options[deliverySelect.selectedIndex]?.text || '';
+
+    let summaryHTML = `<strong>নাম:</strong> ${name}<br>`;
+    summaryHTML += `<strong>মোবাইল নম্বর:</strong> ${phone}<br>`;
+    summaryHTML += `<strong>ইমেইল:</strong> ${email}<br>`;
+    summaryHTML += `<strong>প্যাক:</strong> ${packText}<br>`;
+    if (packSelect.value === 'pendrive') {
+      summaryHTML += `<strong>Pendrive মডেল:</strong> ${pendriveText}<br>`;
+    }
+    summaryHTML += `<strong>ডেলিভারি:</strong> ${deliveryText}<br>`;
+    summaryHTML += `<strong>মোট মূল্য:</strong> <span class="price-tag" id="summaryPrice">৳${document.getElementById('totalPrice').textContent.slice(1)}</span><br>`;
+
+    document.getElementById('orderSummary').innerHTML = summaryHTML;
   }
-}
 
-const packTypeSelect = document.getElementById("packType");
-const pendriveOptions = document.getElementById("pendriveOptions");
-packTypeSelect.addEventListener("change", () => {
-  pendriveOptions.classList.toggle("hidden", packTypeSelect.value !== "pendrive");
-});
+  // Go back from step 2 to 1
+  function goBackStep(step) {
+    if(step === 1) {
+      showStep(1);
+    } else if(step === 2) {
+      showStep(2);
+    }
+  }
 
-function fillSummary() {
-  const summary = document.getElementById("summary");
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const email = document.getElementById("email").value;
-  const pack = document.getElementById("packType").value;
-  const delivery = document.getElementById("delivery").value;
-  const pendrive = document.getElementById("pendriveModel").value;
+  // Next step from 2 -> 3 (if pendrive) or 4 (if only graphics)
+  function goNextStep() {
+    if (packSelect.value === 'pendrive') {
+      showStep(3);
+    } else {
+      // simulate sending graphics pack to email
+      alert('শুধুমাত্র গ্রাফিক প্যাক অর্ডার করার জন্য, প্যাকটি আপনার ইমেইলে পাঠানো হবে।');
+      showStep(4);
+    }
+  }
 
-  let text = `নাম: ${name}<br>ফোন: ${phone}<br>ইমেইল: ${email}<br>প্যাক: ${pack}`;
-  if (pack === 'pendrive') text += `<br>Pendrive: ${pendrive}`;
-  text += `<br>ডেলিভারি: ${delivery}`;
+  // Payment validation & confirm order
+  function confirmOrder() {
+    const bkashNumber = document.getElementById('bkashNumber').value.trim();
+    const trxId = document.getElementById('trxId').value.trim();
+    const paymentError = document.getElementById('paymentError');
 
-  summary.innerHTML = text;
-}
+    if (!bkashNumber.match(/^(01[3-9]\d{8})$/)) {
+      paymentError.textContent = 'সঠিক বিকাশ নাম্বার দিন।';
+      paymentError.classList.remove('hidden');
+      return;
+    }
+    if (trxId.length < 5) {
+      paymentError.textContent = 'সঠিক ট্রানজেকশন আইডি দিন।';
+      paymentError.classList.remove('hidden');
+      return;
+    }
+    paymentError.classList.add('hidden');
+
+    // Here you can handle real submission or API call
+    alert('আপনার পেমেন্ট তথ্য পাওয়া গেছে। ধন্যবাদ!');
+
+    showStep(4);
+  }
+
+  // Initialize price on load
+  updatePrice();
+
 </script>
 
 </body>
