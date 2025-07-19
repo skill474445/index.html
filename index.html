@@ -1,186 +1,142 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graphics Pack অর্ডার ফর্ম</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <title>Esran Creative Corner - Graphics Order Form</title>
   <style>
-    body {
-      font-family: 'Noto Sans Bengali', sans-serif;
-      background: #e3f2fd;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
+    body { font-family: 'Segoe UI', sans-serif; background: #fdfdfd; padding: 20px; color: #222; }
+    .hidden { display: none; }
+    .form-step { max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+    .btn { background: #007BFF; color: white; padding: 10px 16px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+    .btn:hover { background: #0056b3; }
+    .back-btn { background: #ccc; color: black; margin-right: 10px; }
+    .blink {
+      font-size: 2rem;
       font-weight: bold;
+      animation: blinkColors 1s infinite;
     }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      background-color: #eef3ff;
+    @keyframes blinkColors {
+      0% { color: red; }
+      25% { color: orange; }
+      50% { color: green; }
+      75% { color: blue; }
+      100% { color: violet; }
     }
-
-    .form-section {
-      display: none;
-    }
-
-    .form-section.active {
-      display: block;
-    }
-
-    .btn {
-      background: #28a745;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .btn:hover {
-      background: #218838;
-    }
-
-    .attention {
-      background: #fff3cd;
-      padding: 15px;
-      border: 1px solid #ffeeba;
-      border-radius: 8px;
-      margin-top: 20px;
-      font-size: 15px;
-      color: #856404;
-    }
-
-    .branding {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 13px;
-      color: #888;
-    }
-
-    .navigation-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
+    footer { text-align: center; font-size: 14px; margin-top: 30px; color: #888; }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <!-- Order Form Page -->
-    <div id="formPage" class="form-section active">
-      <h2><i class="fas fa-palette"></i> Graphics Pack অর্ডার ফর্ম</h2>
-      <label for="name">আপনার নাম:</label>
-      <input type="text" id="name" required>
 
-      <label for="phone">মোবাইল নম্বর:</label>
-      <input type="text" id="phone" required>
+<div id="step1" class="form-step">
+  <h2>অর্ডার ফর্ম</h2>
+  <label>নাম: <input type="text" id="name" required></label><br><br>
+  <label>ফোন: <input type="tel" id="phone" required></label><br><br>
+  <label>ইমেইল: <input type="email" id="email" required></label><br><br>
+  <label>আপনি কোন প্যাক নিতে চান?</label><br>
+  <select id="packType">
+    <option value="graphics">শুধু Graphics Pack</option>
+    <option value="pendrive">Pendrive সহ Graphics Pack</option>
+  </select><br><br>
+  <label>ডেলিভারি কোথায়?</label><br>
+  <select id="delivery">
+    <option>ঢাকার ভিতরে</option>
+    <option>ঢাকার বাইরে</option>
+    <option>Instant Delivery</option>
+  </select><br><br>
+  <button class="btn" onclick="nextStep(2)">পরবর্তী ধাপে যান</button>
+  <footer>Esran Creative Corner</footer>
+</div>
 
-      <label for="email">ইমেইল ঠিকানা:</label>
-      <input type="email" id="email" required>
+<div id="step2" class="form-step hidden">
+  <h2>অর্ডার সারাংশ ও সতর্কতা</h2>
+  <p><strong>আপনার তথ্য:</strong></p>
+  <p id="summary"></p>
+  <h4>সতর্কতা:</h4>
+  <ul>
+    <li>ভুল তথ্য দিলে অর্ডার বাতিল হতে পারে</li>
+    <li>সঠিক মোবাইল ও ইমেইল ব্যবহার করুন</li>
+    <li>বিকাশ নম্বর: 01641138934</li>
+  </ul>
+  <h4>ইউজার এগ্রিমেন্ট (নৈতিক দিক):</h4>
+  <ol>
+    <li>সততার সাথে কাজ করবেন</li>
+    <li>কোনো কন্টেন্ট অবৈধভাবে ব্যবহার করবেন না</li>
+    <li>ক্লায়েন্টের চাহিদা বুঝে কাজ করবেন</li>
+    <li>গ্রাফিক্স ফাইল অন্যের সঙ্গে ভাগ না করবেন</li>
+    <li>স্বয়ংসম্পূর্ণ হওয়ার চেষ্টা করবেন</li>
+    <li>নিয়মিত অনুশীলন করবেন</li>
+    <li>সময়কে মূল্য দিবেন</li>
+    <li>মার্কেটপ্লেসে সৎভাবে কাজ করবেন</li>
+    <li>নিজেকে দক্ষ করে গড়বেন</li>
+    <li>Esran Creative Corner কে কৃতজ্ঞতা জানাবেন 😄</li>
+  </ol>
+  <button class="btn back-btn" onclick="nextStep(1)">← আগের ধাপে যান</button>
+  <button class="btn" onclick="handleStep2()">পরবর্তী ধাপে যান</button>
+  <footer>Esran Creative Corner</footer>
+</div>
 
-      <label for="pack">আপনি কোন প্যাক নিতে চান?</label>
-      <select id="pack">
-        <option value="graphics">Graphics Pack (ডাউনলোড)</option>
-        <option value="pendrive">Graphics Pack + Pendrive</option>
-      </select>
+<div id="step3" class="form-step hidden">
+  <h2>পেমেন্ট করুন</h2>
+  <p>আপনি Pendrive সহ Graphics Pack অর্ডার করেছেন। নিচের বিকাশ নম্বরে পেমেন্ট সম্পন্ন করুন:</p>
+  <h3 style="color: green;">বিকাশ নম্বর: 01641138934</h3>
+  <p>পেমেন্ট করার পর আমাদের ফেসবুক পেজে মেসেজ দিয়ে Transaction ID দিন।</p>
+  <button class="btn back-btn" onclick="nextStep(2)">← আগের ধাপে যান</button>
+  <button class="btn" onclick="nextStep(4)">পেমেন্ট সম্পন্ন হয়েছে</button>
+  <footer>Esran Creative Corner</footer>
+</div>
 
-      <label for="delivery">ডেলিভারি অপশন:</label>
-      <select id="delivery">
-        <option value="inside">ঢাকার ভিতরে</option>
-        <option value="outside">ঢাকার বাইরে</option>
-        <option value="instant">ডিজিটাল ইনস্ট্যান্ট ডেলিভারি</option>
-      </select>
+<div id="step4" class="form-step hidden">
+  <h2 class="blink">অভিনন্দন!</h2>
+  <p>Esran Creative Corner এর পক্ষ থেকে আপনাকে আন্তরিক অভিনন্দন।<br>
+  আপনি এখন আরও দক্ষ, আত্মনির্ভরশীল এবং প্রফেশনাল হবার পথে এগিয়ে গেলেন।<br>
+  এই Graphics Pack আপনার ডিজিটাল ক্যারিয়ারে নতুন মাত্রা যোগ করবে —<br>
+  নিয়মিত অনুশীলন ও প্র্যাকটিসের মাধ্যমে আপনি আরও দক্ষ ও প্রতিষ্ঠিত হতে পারবেন।</p>
+  <h4>সফল হবার জন্য ১০টি প্রেরণামূলক বার্তা:</h4>
+  <ul>
+    <li>সর্বদা শিখতে থাকুন</li>
+    <li>নিজেকে চ্যালেঞ্জ করুন</li>
+    <li>সময়কে গুরুত্ব দিন</li>
+    <li>নিজের কাজের প্রতি গর্ববোধ করুন</li>
+    <li>ছোট কাজকেও শ্রদ্ধা করুন</li>
+    <li>সততার সঙ্গে কাজ করুন</li>
+    <li>গ্রাহকের চাহিদা বুঝুন</li>
+    <li>ভুল থেকে শিখুন</li>
+    <li>পরিশ্রমকে সঙ্গী করুন</li>
+    <li>স্বপ্ন দেখুন এবং বাস্তবায়ন করুন</li>
+  </ul>
+  <footer>Esran Creative Corner</footer>
+</div>
 
-      <div class="navigation-buttons">
-        <div></div>
-        <button class="btn" onclick="goToSummary()">পরবর্তী</button>
-      </div>
-      <div class="branding">Powered by <strong>Esran Creative Corner</strong></div>
-    </div>
+<script>
+function nextStep(step) {
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('step' + i).classList.add('hidden');
+  }
+  document.getElementById('step' + step).classList.remove('hidden');
+}
 
-    <!-- Order Summary + Warning Page -->
-    <div id="summaryPage" class="form-section">
-      <h2>অর্ডার সারাংশ ও সতর্কতা</h2>
-      <p><strong>আপনার দেওয়া তথ্য:</strong></p>
-      <ul>
-        <li>নাম: <span id="summaryName"></span></li>
-        <li>মোবাইল: <span id="summaryPhone"></span></li>
-        <li>ইমেইল: <span id="summaryEmail"></span></li>
-        <li>প্যাক: <span id="summaryPack"></span></li>
-        <li>ডেলিভারি: <span id="summaryDelivery"></span></li>
-      </ul>
-      <div class="attention">
-        ⚠️ সতর্কবার্তা: একবার অর্ডার নিশ্চিত হলে তা বাতিল করা যাবে না। আপনি প্রদত্ত তথ্যের জন্য সম্পূর্ণ দায়ী থাকবেন।<br>
-        ✔️ আমরা আপনার তথ্য নিরাপদে সংরক্ষণ করব এবং যথাযথভাবে আপনার পণ্য ডেলিভারি করব।
-      </div>
-      <div class="navigation-buttons">
-        <button class="btn" onclick="goToForm()">আগের ধাপ</button>
-        <button class="btn" onclick="goNextStep()">পরবর্তী</button>
-      </div>
-      <div class="branding">Powered by <strong>Esran Creative Corner</strong></div>
-    </div>
+function handleStep2() {
+  const pack = document.getElementById("packType").value;
+  if (pack === 'pendrive') {
+    nextStep(3);
+  } else {
+    nextStep(4);
+  }
+}
 
-    <!-- Success / Payment Page will appear conditionally (already added before) -->
-  </div>
+// Fill summary
+const summary = document.getElementById("summary");
+document.getElementById("packType").addEventListener('change', fillSummary);
+document.getElementById("delivery").addEventListener('change', fillSummary);
+function fillSummary() {
+  summary.innerHTML = `নাম: ${document.getElementById("name").value}<br>
+  ফোন: ${document.getElementById("phone").value}<br>
+  ইমেইল: ${document.getElementById("email").value}<br>
+  প্যাক: ${document.getElementById("packType").value}<br>
+  ডেলিভারি: ${document.getElementById("delivery").value}`;
+}
 
-  <script>
-    function goToSummary() {
-      document.getElementById("formPage").classList.remove("active");
-      document.getElementById("summaryPage").classList.add("active");
-      
-      document.getElementById("summaryName").textContent = document.getElementById("name").value;
-      document.getElementById("summaryPhone").textContent = document.getElementById("phone").value;
-      document.getElementById("summaryEmail").textContent = document.getElementById("email").value;
-      document.getElementById("summaryPack").textContent = document.getElementById("pack").value;
-      document.getElementById("summaryDelivery").textContent = document.getElementById("delivery").value;
-    }
-
-    function goToForm() {
-      document.getElementById("summaryPage").classList.remove("active");
-      document.getElementById("formPage").classList.add("active");
-    }
-
-    function goNextStep() {
-      const selectedPack = document.getElementById("pack").value;
-      document.getElementById("summaryPage").classList.remove("active");
-      if (selectedPack === "pendrive") {
-        alert("পেমেন্ট পেইজ এখনো যুক্ত হয়নি (demo) - Pendrive সহ নেওয়া হলে এই পেইজ আসবে।");
-      } else {
-        showSuccessPage();
-      }
-    }
-  </script>
-
+</script>
 </body>
-
 </html>
