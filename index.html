@@ -100,9 +100,6 @@
       font-size: 13px;
       color: #777;
     }
-    .payment-method {
-      margin-bottom: 20px;
-    }
   </style>
 </head>
 <body>
@@ -145,6 +142,7 @@
           <option value="ঢাকার ভিতরে" data-charge="80">ঢাকার ভিতরে (৳৮০)</option>
           <option value="ঢাকার বাইরে" data-charge="150">ঢাকার বাইরে (৳১৫০)</option>
           <option value="Instant Delivery Dhaka" data-charge="200">Instant Delivery (৳২০০+)</option>
+          <option value="Cash on Delivery" data-charge="150">Cash on Delivery (৳১৫০)</option>
         </select>
       </div>
 
@@ -156,31 +154,22 @@
       <p class="note">📌 মোট মূল্য: <strong><span id="total">৳১৫০</span></strong></p>
       <input type="hidden" id="total_price" name="total_price" value="150">
 
-      <div class="payment-method">
-        <label for="payment_method">পেমেন্ট পদ্ধতি নির্বাচন করুন:</label>
-        <select id="payment_method" name="payment_method" required>
-          <option value="">-- একটি নির্বাচন করুন --</option>
-          <option value="bkash">Bkash</option>
-          <option value="cod">Cash on Delivery</option>
-        </select>
-      </div>
-
       <button type="button" onclick="goToStep2()">পরবর্তী ধাপে যান</button>
     </div>
 
     <div id="step2">
-      <div id="bkash-section">
-        <h3>📱 বিকাশ নাম্বার: <span class="highlight">+01641138934</span></h3>
-        <p>উপরের নাম্বারে Send Money করুন এবং নিচে তথ্য দিন:</p>
+      <h3>📱 বিকাশ নাম্বার: <span class="highlight">+01641138934</span></h3>
+      <p>উপরের নাম্বারে Send Money করুন এবং নিচে তথ্য দিন:</p>
 
-        <label><input type="checkbox" id="agreement"> আমি নিশ্চিত করছি যে আমি বিকাশে টাকা পাঠিয়েছি।</label>
-      </div>
+      <label><input type="checkbox" id="agreement" required> আমি নিশ্চিত করছি যে আমি বিকাশে টাকা পাঠিয়েছি।</label>
 
       <label><input type="checkbox" id="policy-agree" required> আমি <a href="#" onclick="toggleReadme(event)">নিয়মাবলি পড়েছি</a> এবং একমত।</label>
 
       <div id="readme-content">
         <strong>📄 অর্ডার ও কপিরাইট সংক্রান্ত ১০টি গুরুত্বপূর্ণ নিয়ম:</strong>
         <ol>
+          <li>শুধু Graphics Pack নিলে আপনার ইমেইলে ফাইল পাঠানো হবে।</li>
+          <li>শুধু Graphics Pack এর ক্ষেত্রে আগে বিকাশ পেমেন্ট আবশ্যক।</li>
           <li>অর্ডার কনফার্ম হওয়ার পর সেটি ক্যানসেল করা যাবে না।</li>
           <li>প্রয়োজনীয় তথ্য না দিলে অর্ডার দেরি হতে পারে।</li>
           <li>ডিজিটাল প্রোডাক্ট হওয়ায় রিফান্ড নীতিমালা সীমিত।</li>
@@ -188,15 +177,13 @@
           <li>সকল কনটেন্ট কেবল শিক্ষামূলক উদ্দেশ্যে সরবরাহ করা হয়।</li>
           <li>এই গ্রাফিক্স প্যাকের কোনো অংশ পুনরায় বিক্রি করা যাবে না।</li>
           <li>গ্রাহক নিজ দায়িত্বে কপিরাইট আইন মেনে ব্যবহার করবেন।</li>
-          <li>প্রয়োজনে WhatsApp বা ফোনে যোগাযোগ করতে পারেন।</li>
-          <li>অর্ডার সম্পূর্ণ হলে ২৪ ঘণ্টার মধ্যে ডেলিভারি নিশ্চিত হয়।</li>
           <li>সকল আইনী অধিকার সংরক্ষিত: © Esran Creative Corner</li>
         </ol>
       </div>
 
-      <div id="payment-fields">
+      <div id="payment-fields" style="margin-top:10px;">
         <label for="payment_number">যে নাম্বার থেকে পাঠিয়েছেন:</label>
-        <input type="tel" name="payment_number">
+        <input type="tel" name="payment_number" id="payment_number">
 
         <label for="trxid">Bkash Transaction ID:</label>
         <input type="text" id="trxid" name="trxid">
@@ -229,10 +216,7 @@
   const totalInput = document.getElementById("total_price");
   const addressSection = document.getElementById("address-section");
   const addressField = document.getElementById("address");
-  const bkashSection = document.getElementById("bkash-section");
   const paymentFields = document.getElementById("payment-fields");
-  const paymentMethod = document.getElementById("payment_method");
-  const agreementCheckbox = document.getElementById("agreement");
 
   function calculateTotal() {
     let total = 150;
@@ -246,39 +230,28 @@
   }
 
   serviceSelect.addEventListener("change", () => {
-    if (serviceSelect.value === "graphics-pack-pendrive") {
-      pendriveSection.style.display = "block";
-      addressSection.style.display = "block";
-      addressField.setAttribute("required", "required");
-    } else {
-      pendriveSection.style.display = "none";
-      addressSection.style.display = "none";
-      addressField.removeAttribute("required");
-      totalDisplay.textContent = "৳১৫০";
-      totalInput.value = 150;
+    const isPendrive = serviceSelect.value === "graphics-pack-pendrive";
+    pendriveSection.style.display = isPendrive ? "block" : "none";
+    addressSection.style.display = isPendrive ? "block" : "none";
+    addressField.required = isPendrive;
+    if (!isPendrive) {
+      deliverySelect.value = "";
     }
+    calculateTotal();
   });
 
   pendriveModel.addEventListener("change", calculateTotal);
-  deliverySelect.addEventListener("change", calculateTotal);
-
-  paymentMethod.addEventListener("change", () => {
-    if (paymentMethod.value === "bkash") {
-      bkashSection.style.display = "block";
-      paymentFields.style.display = "block";
-      agreementCheckbox.required = true;
-    } else {
-      bkashSection.style.display = "none";
-      paymentFields.style.display = "none";
-      agreementCheckbox.required = false;
-    }
+  deliverySelect.addEventListener("change", () => {
+    calculateTotal();
+    const hidePayment = deliverySelect.value === "Cash on Delivery";
+    paymentFields.style.display = hidePayment ? "none" : "block";
   });
 
   function goToStep2() {
     const inputs = document.querySelectorAll("#step1 input, #step1 select, #step1 textarea");
     let allValid = true;
     inputs.forEach(input => {
-      if (input.offsetParent !== null && !input.checkValidity()) {
+      if (!input.checkValidity()) {
         input.reportValidity();
         allValid = false;
       }
@@ -286,6 +259,9 @@
     if (allValid) {
       document.getElementById("step1").style.display = "none";
       document.getElementById("step2").style.display = "block";
+
+      const hidePayment = serviceSelect.value === "graphics-pack-pendrive" && deliverySelect.value === "Cash on Delivery";
+      paymentFields.style.display = hidePayment ? "none" : "block";
     }
   }
 
@@ -298,12 +274,9 @@
   document.getElementById("order-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const form = e.target;
-    if (paymentMethod.value === "bkash" && !agreementCheckbox.checked) {
-      alert("দয়া করে বিকাশ কনফার্মেশন টিক দিন অথবা অন্য পেমেন্ট অপশন বেছে নিন।");
-      return;
-    }
-    if (!document.getElementById("policy-agree").checked) {
-      alert("দয়া করে নিয়মাবলিতে টিক দিন।");
+    const hidePayment = paymentFields.style.display === "none";
+    if (!document.getElementById("policy-agree").checked || (!hidePayment && !document.getElementById("agreement").checked)) {
+      alert("দয়া করে বিকাশ কনফার্মেশন এবং নিয়মাবলিতে টিক দিন।");
       return;
     }
 
