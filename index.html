@@ -1,279 +1,223 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>কে হবে কোটিপতি - ধাঁধা গেম</title>
+<meta charset="UTF-8">
+  <title>Graphics Pack অর্ডার ফর্ম</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #ffecd2, #fcb69f);
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      color: #333;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
     }
-    .container {
+    section {
       max-width: 600px;
       margin: auto;
-      padding: 20px;
-    }
-    h1 {
-      color: #e91e63;
-      font-size: 2.5rem;
-    }
-    .intro, .game, .game-over, .leaderboard {
-      display: none;
-    }
-    .visible {
-      display: block;
-    }
-    .option {
-      margin: 10px;
-      padding: 10px;
-      border-radius: 10px;
-      background-color: #ffecb3;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .option:hover {
-      background-color: #ffe082;
-    }
-    .timer {
-      font-size: 1.5rem;
-      margin: 10px 0;
-      color: #d32f2f;
-    }
-    .btn {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      background-color: #4caf50;
-      color: white;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .btn:hover {
-      background-color: #388e3c;
-    }
-    .leaderboard {
       background: #fff;
       padding: 20px;
-      margin-top: 20px;
-      border-radius: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
     }
-    .leaderboard h2 {
-      color: #1976d2;
+    h2, h3 {
+      color: #2C3E50;
+    }
+    input, select, textarea {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+    }
+    button {
+      background: #27AE60;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .note, .disclaimer {
+      font-size: 14px;
+      color: #555;
+    }
+    .disclaimer {
+      background: #fefbea;
+      border-left: 5px solid #f1c40f;
+      padding: 10px;
+      margin-top: 20px;
+    }
+    #thank-you {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    #step2 {
+      display: none;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
   </style>
-</head>
-<body>
-  <div class="container">
-    <div class="intro visible" id="intro">
-      <h1>কে হবে কোটিপতি</h1>
-      <p>এই গেমে থাকবে ৫০টি ধাঁধা প্রশ্ন। প্রতিটি প্রশ্নের চারটি করে অপশন থাকবে এবং উত্তর দিতে হবে ১০ সেকেন্ডের মধ্যে। ভুল উত্তর দিলে গেম শেষ। সঠিকভাবে সব প্রশ্ন উত্তরের মাধ্যমে আপনি জিতে নিতে পারেন সেরা স্কোর।</p>
-      <button class="btn" onclick="startGame()">গেম শুরু করুন</button>
-    </div>
 
-    <div class="game" id="game">
-      <div class="timer">সময় বাকি: <span id="time">10</span> সেকেন্ড</div>
-      <h2 id="question">প্রশ্ন লোড হচ্ছে...</h2>
-      <div id="options"></div>
-      <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>পরবর্তী</button>
-    </div>
 
-    <div class="game-over" id="gameOver">
-      <h2>গেম শেষ!</h2>
-      <p>আপনি <span id="correctCount">0</span> টি প্রশ্নের মধ্যে <span id="totalCount">0</span> টি সঠিকভাবে উত্তর দিয়েছেন।</p>
-      <p>আপনার স্কোর: <span id="finalScore">0</span></p>
-      <button class="btn" onclick="restartGame()">আবার শুরু করুন</button>
-      <button class="btn" onclick="showLeaderboard()">Leaderboard দেখুন</button>
-    </div>
 
-    <div class="leaderboard" id="leaderboard">
-      <h2>🏆 লিডারবোর্ড</h2>
-      <div>
-        <button onclick="loadLeaderboard('daily')">দৈনিক</button>
-        <button onclick="loadLeaderboard('weekly')">সাপ্তাহিক</button>
-        <button onclick="loadLeaderboard('monthly')">মাসিক</button>
+<section>
+  <h2>🎨 Graphics Pack অর্ডার ফর্ম</h2>
+
+  <form id="order-form" action="https://formspree.io/f/xdkznrqp" method="POST" novalidate="">
+
+    
+    <div id="step1">
+      <label for="name">নাম:</label>
+      <input type="text" id="name" name="name" required="">
+
+      <label for="phone">মোবাইল নম্বর:</label>
+      <input type="tel" id="phone" name="phone" required="">
+
+      <label for="email">ইমেইল:</label>
+      <input type="email" id="email" name="email" required="">
+
+      <label for="service">আপনি কী ধরনের সার্ভিস নিচ্ছেন?</label>
+      <select id="service" name="service" required="">
+        <option value="">-- একটি নির্বাচন করুন --</option>
+        <option value="graphics-pack">শুধু Graphics Pack (৳১৫০)</option>
+        <option value="graphics-pack-pendrive">Pendrive সহ Graphics Pack</option>
+      </select>
+
+      <div id="pendrive-options" style="display:none;">
+        <label for="pendrive-model">Pendrive মডেল:</label>
+        <select id="pendrive-model" name="pendrive_model">
+          <option value="">-- একটি মডেল বেছে নিন --</option>
+          <option value="SanDisk Ultra Flair 128GB" data-price="1100">SanDisk Ultra Flair — ৳1100</option>
+          <option value="HP x765w 128GB" data-price="1150">HP x765w — ৳1150</option>
+          <option value="Transcend JetFlash 128GB" data-price="1200">Transcend JetFlash — ৳1200</option>
+          <option value="Samsung BAR Plus 128GB" data-price="1300">Samsung BAR Plus — ৳1300</option>
+        </select>
+
+        <label for="delivery">ডেলিভারি টাইপ:</label>
+        <select id="delivery" name="delivery_type">
+          <option value="">-- একটি নির্বাচন করুন --</option>
+          <option value="ঢাকার ভিতরে" data-charge="80">ঢাকার ভিতরে (৳৮০)</option>
+          <option value="ঢাকার বাইরে" data-charge="150">ঢাকার বাইরে (৳১৫০)</option>
+          <option value="Instant Delivery Dhaka" data-charge="200">Instant Delivery (৳২০০+)</option>
+        </select>
       </div>
-      <ul id="leaderboardList"></ul>
-      <button class="btn" onclick="restartGame()">আবার শুরু করুন</button>
+
+      <div id="address-section" style="display:none;">
+        <label for="address">আপনার সম্পূর্ণ ঠিকানা:</label>
+        <textarea id="address" name="address" rows="3" required=""></textarea>
+      </div>
+
+      <p class="note">📌 মোট মূল্য: <strong><span id="total">৳১৫০</span></strong></p>
+      <input type="hidden" id="total_price" name="total_price" value="150">
+
+      <button type="button" onclick="goToStep2()">পরবর্তী ধাপে যান</button>
     </div>
+
+    
+    <div id="step2">
+      <h3>📱 বিকাশ নাম্বার: <span style="color:#e74c3c;">+01641138934</span></h3>
+      <p>উপরের নাম্বারে Send Money করুন এবং নিচে তথ্য দিন:</p>
+
+      <label><input type="checkbox" id="agreement" required=""> আমি নিশ্চিত করছি যে আমি বিকাশে টাকা পাঠিয়েছি।</label>
+
+      <div id="payment-fields" style="margin-top:10px;">
+        <label for="payment_number">যে নাম্বার থেকে পাঠিয়েছেন:</label>
+        <input type="tel" name="payment_number" required="">
+
+        <label for="trxid">Bkash Transaction ID:</label>
+        <input type="text" id="trxid" name="trxid" required="">
+      </div>
+
+      <button type="submit">✅ অর্ডার কনফার্ম করুন</button>
+    </div>
+  </form>
+
+  <div class="disclaimer">
+    ⚠️ এই Graphics Pack শুধুমাত্র শিক্ষামূলক কাজে ব্যবহারের জন্য। কপিরাইট সংক্রান্ত দায়ভার গ্রাহকের।
   </div>
 
-  <script>
-    const questions = [
-      { question: "প্রশ্ন ১: যে জিনিসটি না দেখেও সবাই চেনে সেটা কী?", options:["আয়না","ঘড়ি","অন্ধকার","রোদ"], answer:"অন্ধকার" },
-  { question: "প্রশ্ন ২: যে জিনিসটি কাটলে কান্না আসে?", options:["পেঁয়াজ","মরিচ","রসুন","লেবু"], answer:"পেঁয়াজ" },
-  { question: "প্রশ্ন ৩: যার হাত নেই, পা নেই, কিন্তু দরজা খুলে দিতে পারে—সে কী?", options:["তালা","চাবি","বাতাস","ঘণ্টা"], answer:"চাবি" },
-  { question: "প্রশ্ন ৪: দিনে দু’বার আসে, কিন্তু কখনো হাঁটে না—এটা কী?", options:["ছায়া","সূর্য","ঘড়ি","সময়"], answer:"সময়" },
-  { question: "প্রশ্ন ৫: যা একবার গেলে আর ফিরে আসে না, তা কী?", options:["নদী","সময়","জীবন","বৃষ্টি"], answer:"সময়" },
-  { question: "প্রশ্ন ৬: কোন ফলটি সবচেয়ে হাসে?", options:["কলা","আপেল","জাম","আনারস"], answer:"কলা" },
-  { question: "প্রশ্ন ৭: ঘুমানোর সময় কোন অঙ্গ কাজ করে না?", options:["চোখ","কান","জিহ্বা","নাক"], answer:"চোখ" },
-  { question: "প্রশ্ন ৮: সবসময় পেছনে থাকে, সামনে আসে না—এটা কী?", options:["ছায়া","অতীত","রাত","দরজা"], answer:"অতীত" },
-  { question: "প্রশ্ন ৯: খালি থাকতে পূর্ণ, পূর্ণ থাকতে খালি লাগে—এটা কী?", options:["মন","পকেট","গ্লাস","সময়"], answer:"মন" },
-  { question: "প্রশ্ন ১০: যা তোমার, কিন্তু অন্যেরা বেশি ব্যবহার করে—এটা কী?", options:["টাকা","নাম","জামা","ফোন"], answer:"নাম" },
+  <div id="thank-you">
+    <h2>🎉 Thank You For Your Purchase!</h2>
+    <p>আপনার অর্ডার সফলভাবে সাবমিট হয়েছে।</p>
+    <p>সাহায্যের জন্য কল করুন: <strong>+01518927820</strong></p>
+  </div>
+</section>
 
-  { question: "প্রশ্ন ১১: কোন জিনিসটা যতই ভাঙো, তা ততই বড় হয়?", options:["আয়না","ঘুম","নিরবতা","স্মৃতি"], answer:"স্মৃতি" },
-  { question: "প্রশ্ন ১২: যে জিনিসটা একা আসতে পারে না, সঙ্গে কাউকে নিয়ে আসে?", options:["ছায়া","রাত","রোদ","বৃষ্টি"], answer:"ছায়া" },
-  { question: "প্রশ্ন ১৩: কোন জিনিসটি আগে নিজের জন্য কাঁটে, তারপর অন্যের জন্য?", options:["ছুরি","পেন্সিল","চুল","ব্লেড"], answer:"ব্লেড" },
-  { question: "প্রশ্ন ১৪: কোন ঘর কখনো বাসযোগ্য নয়?", options:["আয়না ঘর","গ্যাস ঘর","মৌচাক ঘর","অন্ধকার ঘর"], answer:"মৌচাক ঘর" },
-  { question: "প্রশ্ন ১৫: কোন জিনিসটি তাতে ভরলেও খালি থাকে?", options:["ঝুড়ি","চুলা","গর্ত","পাত্র"], answer:"ঝুড়ি" },
-  { question: "প্রশ্ন ১৬: কোনটা ভাঙলেও শব্দ হয় না?", options:["চুপ থাকা","শান্তি","ঘুম","নীরবতা"], answer:"নীরবতা" },
-  { question: "প্রশ্ন ১৭: এমন কী জিনিস যা যত কম হয় তত ভাল?", options:["রোগ","সমস্যা","ঋণ","ঘুম"], answer:"ঋণ" },
-  { question: "প্রশ্ন ১৮: কোনটি জীবিত নয় কিন্তু কথা বলতে পারে?", options:["টিভি","বই","রেডিও","মোবাইল"], answer:"রেডিও" },
-  { question: "প্রশ্ন ১৯: কী কখনো পুরানো হয় না?", options:["রোদ","জ্ঞান","আলো","আশা"], answer:"জ্ঞান" },
-  { question: "প্রশ্ন ২০: কোনটা কাঁদে কিন্তু চোখ নেই?", options:["আকাশ","মেঘ","বৃষ্টি","জল"], answer:"মেঘ" },
+<script>
+  const serviceSelect = document.getElementById("service");
+  const pendriveSection = document.getElementById("pendrive-options");
+  const pendriveModel = document.getElementById("pendrive-model");
+  const deliverySelect = document.getElementById("delivery");
+  const totalDisplay = document.getElementById("total");
+  const totalInput = document.getElementById("total_price");
+  const addressSection = document.getElementById("address-section");
+  const addressField = document.getElementById("address");
 
-  { question: "প্রশ্ন ২১: কোন জিনিসটা উড়ে কিন্তু পাখি নয়?", options:["সময়","বিমান","পতাকা","ধোঁয়া"], answer:"বিমান" },
-  { question: "প্রশ্ন ২২: এমন কী জিনিস যা লিখলে আরও বড় হয়?", options:["রচনা","বই","লেখা","নিবন্ধ"], answer:"রচনা" },
-  { question: "প্রশ্ন ২৩: কোন জিনিস দিন-রাত কিন্তু সূর্য নয়?", options:["ঘড়ি","চাঁদ","ঘণ্টা","আলোক"], answer:"ঘড়ি" },
-  { question: "প্রশ্ন ২৪: এমন কী জিনিস যা আমরা দেখি না কিন্তু অনুভব করি?", options:["হাওয়া","আত্মা","শব্দ","আলো"], answer:"হাওয়া" },
-  { question: "প্রশ্ন ২৫: কোনটি সবসময় উপরে উঠে কিন্তু নিচে নামে না?", options:["বয়স","আশা","ভালবাসা","উচ্চতা"], answer:"বয়স" },
-  { question: "প্রশ্ন ২৬: কোনটা কাজ করে কিন্তু কখনো বিশ্রাম নেয় না?", options:["ঘড়ি","যন্ত্র","সময়","কম্পিউটার"], answer:"সময়" },
-  { question: "প্রশ্ন ২৭: কোন জিনিসটি নিজের পায়ে দাঁড়িয়ে থাকে না?", options:["চেয়ার","টেবিল","ছাতা","পিলার"], answer:"ছাতা" },
-  { question: "প্রশ্ন ২৮: কোনটা উল্টো করলেই একই থাকে?", options:["নাম","পরিবেশ","মম","লিখ"], answer:"মম" },
-  { question: "প্রশ্ন ২৯: কোনটা মানুষের মতো কথা বলে কিন্তু মানুষ নয়?", options:["রোবট","রেডিও","টিভি","পুতুল"], answer:"রোবট" },
-  { question: "প্রশ্ন ৩০: কোন জিনিসটা সবসময় ঘোরে কিন্তু কোথাও যায় না?", options:["ঘড়ি","পাখা","চাকা","বাতাস"], answer:"ঘড়ি" },
+  function calculateTotal() {
+    let total = 150;
+    if (serviceSelect.value === "graphics-pack-pendrive") {
+      const pendrivePrice = Number(pendriveModel.selectedOptions[0]?.dataset.price || 0);
+      const deliveryCharge = Number(deliverySelect.selectedOptions[0]?.dataset.charge || 0);
+      total = 150 + pendrivePrice + deliveryCharge;
+    }
+    totalDisplay.textContent = `৳${total}`;
+    totalInput.value = total;
+  }
 
-  { question: "প্রশ্ন ৩১: কোন জিনিস যতই বের করো, ততই বাড়ে?", options:["রহস্য","শব্দ","ভালবাসা","বিদ্যা"], answer:"বিদ্যা" },
-  { question: "প্রশ্ন ৩২: এমন কোন জিনিস যা চুরি করা যায় না?", options:["জ্ঞান","স্বপ্ন","ভালবাসা","আশা"], answer:"জ্ঞান" },
-  { question: "প্রশ্ন ৩৩: কোনটা দেখলে মানুষ ভয় পায় কিন্তু ক্ষতি করে না?", options:["ছায়া","অন্ধকার","প্রেতাত্মা","স্বপ্ন"], answer:"ছায়া" },
-  { question: "প্রশ্ন ৩৪: কোনটা জ্বলতে পারে কিন্তু আগুন নয়?", options:["বাতি","আলো","সূর্য","চোখ"], answer:"চোখ" },
-  { question: "প্রশ্ন ৩৫: কোনটি দেখো, কিন্তু ধরতে পারো না?", options:["রঙধনু","আলো","ছবি","স্বপ্ন"], answer:"রঙধনু" },
-  { question: "প্রশ্ন ৩৬: কোন জিনিসটি সবার থাকে, কিন্তু কেউ দেখে না?", options:["মন","মস্তিষ্ক","আত্মা","আশা"], answer:"আত্মা" },
-  { question: "প্রশ্ন ৩৭: কোন জিনিসটা রাতে কাজ করে কিন্তু দিনে বিশ্রাম নেয়?", options:["চাঁদ","ঘুম","নিদ্রা","তারা"], answer:"চাঁদ" },
-  { question: "প্রশ্ন ৩৮: কোনটা ঠান্ডা করে কিন্তু বরফ নয়?", options:["পাখা","বাতাস","হাওয়া","এসি"], answer:"পাখা" },
-  { question: "প্রশ্ন ৩৯: কোনটা দেখতে পাই না, কিন্তু চারদিকে থাকে?", options:["হাওয়া","আশা","আত্মা","ভালবাসা"], answer:"হাওয়া" },
-  { question: "প্রশ্ন ৪০: কোনটা জীবিত নয় কিন্তু ছায়া ফেলে?", options:["গাছ","পাথর","চেয়ার","টেবিল"], answer:"গাছ" },
+  serviceSelect.addEventListener("change", () => {
+    if (serviceSelect.value === "graphics-pack-pendrive") {
+      pendriveSection.style.display = "block";
+      addressSection.style.display = "block";
+      addressField.setAttribute("required", "required");
+    } else {
+      pendriveSection.style.display = "none";
+      addressSection.style.display = "none";
+      addressField.removeAttribute("required");
+      totalDisplay.textContent = "৳১৫০";
+      totalInput.value = 150;
+    }
+  });
 
-  { question: "প্রশ্ন ৪১: কোনটা যতই ভরো, খালি থাকে?", options:["ঝুড়ি","পাত্র","গর্ত","বালতি"], answer:"গর্ত" },
-  { question: "প্রশ্ন ৪২: কোনটা সবসময় নিচে নামে কিন্তু পড়ে না?", options:["সময়","বৃষ্টি","পানি","সূর্য"], answer:"বৃষ্টি" },
-  { question: "প্রশ্ন ৪৩: কোনটা অনেক কিছু বহন করে কিন্তু নড়ে না?", options:["নদী","ছবি","ট্রেন","রাস্তা"], answer:"রাস্তা" },
-  { question: "প্রশ্ন ৪৪: কোন জিনিসটা শুধুই রাতেই জ্বলে?", options:["চাঁদ","তারা","আলো","বাতি"], answer:"তারা" },
-  { question: "প্রশ্ন ৪৫: কোন জিনিসটা সবসময় আমাদের সামনে কিন্তু আমরা দেখি না?", options:["ভবিষ্যত","আশা","সময়","আলো"], answer:"ভবিষ্যত" },
-  { question: "প্রশ্ন ৪৬: কোন জিনিসটা যতই দাও, কমে না?", options:["ভালবাসা","আশা","হাসি","গল্প"], answer:"ভালবাসা" },
-  { question: "প্রশ্ন ৪৭: কোনটা সবসময় উপরে থাকে কিন্তু গাছ নয়?", options:["আকাশ","চাঁদ","রোদ","সূর্য"], answer:"আকাশ" },
-  { question: "প্রশ্ন ৪৮: কোনটা কাঁদে কিন্তু জল নেই?", options:["চোখ","আকাশ","হৃদয়","চাঁদ"], answer:"হৃদয়" },
-  { question: "প্রশ্ন ৪৯: কোনটা চলতে পারে না, তবুও চলা বলা হয়?", options:["ঘড়ি","সময়","চাকা","ছায়া"], answer:"সময়" },
-  { question: "প্রশ্ন ৫০: কোনটা যতই ফেলো, ততই বেড়ে যায়?", options:["ভালবাসা","আশা","আলো","জ্ঞান"], answer:"ভালবাসা" }
-];
+  pendriveModel.addEventListener("change", calculateTotal);
+  deliverySelect.addEventListener("change", calculateTotal);
 
-    while (questions.length < 50) {
-      questions.push({ q: `ডামি প্রশ্ন ${questions.length + 1}`, options: ["A", "B", "C", "D"], correct: Math.floor(Math.random() * 4) });
+  function goToStep2() {
+    const currentStep = document.getElementById("step1");
+    const inputs = currentStep.querySelectorAll("input, select, textarea");
+    let allValid = true;
+
+    inputs.forEach(input => {
+      if (!input.checkValidity()) {
+        input.reportValidity();
+        allValid = false;
+      }
+    });
+
+    if (allValid) {
+      document.getElementById("step1").style.display = "none";
+      document.getElementById("step2").style.display = "block";
+    }
+  }
+
+  document.getElementById("order-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const form = e.target;
+    if (!document.getElementById("agreement").checked) {
+      alert("দয়া করে কনফার্মেশনে টিক দিন।");
+      return;
     }
 
-    questions.sort(() => Math.random() - 0.5);
-
-    let currentQuestion = 0;
-    let score = 0;
-    let correctCount = 0;
-    let timer;
-    let timeLeft = 10;
-    let answered = false;
-
-    function startGame() {
-      document.getElementById('intro').classList.remove('visible');
-      document.getElementById('gameOver').classList.remove('visible');
-      document.getElementById('leaderboard').classList.remove('visible');
-      document.getElementById('game').classList.add('visible');
-      currentQuestion = 0;
-      score = 0;
-      correctCount = 0;
-      showQuestion();
-    }
-
-    function showQuestion() {
-      answered = false;
-      document.getElementById('nextBtn').disabled = true;
-      const q = questions[currentQuestion];
-      document.getElementById('question').textContent = q.q;
-      const optionsDiv = document.getElementById('options');
-      optionsDiv.innerHTML = '';
-      q.options.forEach((opt, idx) => {
-        const div = document.createElement('div');
-        div.className = 'option';
-        div.textContent = opt;
-        div.onclick = () => selectOption(idx);
-        optionsDiv.appendChild(div);
-      });
-      timeLeft = 10;
-      document.getElementById('time').textContent = timeLeft;
-      clearInterval(timer);
-      timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById('time').textContent = timeLeft;
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          gameOver(false);
-        }
-      }, 1000);
-    }
-
-    function selectOption(index) {
-      if (answered) return;
-      answered = true;
-      clearInterval(timer);
-      const q = questions[currentQuestion];
-      const options = document.getElementById('options').children;
-      if (index === q.correct) {
-        options[index].style.backgroundColor = '#81c784';
-        options[index].textContent += ' ✅ সঠিক উত্তর!';
-        let level = Math.floor(currentQuestion / 5) + 1;
-        score += level;
-        correctCount++;
-        document.getElementById('nextBtn').disabled = false;
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        form.style.display = "none";
+        document.getElementById("thank-you").style.display = "block";
       } else {
-        options[index].style.backgroundColor = '#e57373';
-        options[index].textContent += ' ❌ ভুল উত্তর!';
-        const correctOpt = options[q.correct];
-        correctOpt.style.backgroundColor = '#aed581';
-        correctOpt.textContent += ' ✔ সঠিক উত্তর ছিল!';
-        setTimeout(() => gameOver(false), 2000);
+        alert("সাবমিশনে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
       }
-    }
-
-    function nextQuestion() {
-      currentQuestion++;
-      if (currentQuestion >= questions.length) {
-        gameOver(true);
-      } else {
-        showQuestion();
-      }
-    }
-
-    function gameOver(finished) {
-      clearInterval(timer);
-      document.getElementById('game').classList.remove('visible');
-      document.getElementById('gameOver').classList.add('visible');
-      document.getElementById('finalScore').textContent = score;
-      document.getElementById('correctCount').textContent = correctCount;
-      document.getElementById('totalCount').textContent = currentQuestion + 1;
-    }
-
-    function restartGame() {
-      startGame();
-    }
-
-    function showLeaderboard() {
-      document.getElementById('gameOver').classList.remove('visible');
-      document.getElementById('leaderboard').classList.add('visible');
-      loadLeaderboard('daily');
-    }
-
-    function loadLeaderboard(type) {
-      const list = document.getElementById('leaderboardList');
-      list.innerHTML = `<li>${type.toUpperCase()} LEADERBOARD:</li>`;
-      list.innerHTML += `<li>আপনার স্কোর: ${score} পয়েন্ট</li>`;
-      for (let i = 1; i <= 5; i++) {
-        list.innerHTML += `<li>Player ${i} - ${Math.floor(Math.random() * 100)}%</li>`;
-      }
-    }
-  </script>
-  <footer style="margin-top: 40px; font-size: 0.9rem; color: #555;">
-    Developed by <strong>Esran Islam Sohel</strong>
-  </footer>
-</body>
-</html>
+    }).catch(() => {
+      alert("নেটওয়ার্ক সমস্যার কারণে ফর্ম সাবমিট হয়নি।");
+    });
+  });
+</script>
