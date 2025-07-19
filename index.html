@@ -90,16 +90,6 @@
     #readme-content ol {
       padding-left: 20px;
     }
-    #pendrive-image {
-      margin-top: 15px;
-      display: none;
-    }
-    #pendrive-preview {
-      width: 100%;
-      max-width: 250px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
     @keyframes fadeIn {
       from {opacity: 0;}
       to {opacity: 1;}
@@ -109,6 +99,9 @@
       margin-top: 30px;
       font-size: 13px;
       color: #777;
+    }
+    .payment-method {
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -131,8 +124,8 @@
 
       <label for="service">আপনি কী ধরনের সার্ভিস নিচ্ছেন?</label>
       <select id="service" name="service" required>
-        <option value="">-- একটি নির্বচন করুন --</option>
-        <option value="graphics-pack">শুধু Graphics Pack (৳১৫৮)</option>
+        <option value="">-- একটি নির্বাচন করুন --</option>
+        <option value="graphics-pack">শুধু Graphics Pack (৳১৫০)</option>
         <option value="graphics-pack-pendrive">Pendrive সহ Graphics Pack</option>
       </select>
 
@@ -146,16 +139,12 @@
           <option value="Samsung BAR Plus 128GB" data-price="1300">Samsung BAR Plus — ৳1300</option>
         </select>
 
-        <div id="pendrive-image">
-          <img id="pendrive-preview" src="" alt="Pendrive Preview">
-        </div>
-
         <label for="delivery">ডেলিভারি টাইপ:</label>
         <select id="delivery" name="delivery_type">
-          <option value="">— একটি নির্বচন করুন —</option>
-          <option value="ঢাকার ভিতরে" data-charge="80">ঢাকার ভিতরে (৳80)</option>
-          <option value="ঢাকার বাইরে" data-charge="150">ঢাকার বাইরে (৳150)</option>
-          <option value="Instant Delivery Dhaka" data-charge="200">Instant Delivery (৳200+)</option>
+          <option value="">-- একটি নির্বাচন করুন --</option>
+          <option value="ঢাকার ভিতরে" data-charge="80">ঢাকার ভিতরে (৳৮০)</option>
+          <option value="ঢাকার বাইরে" data-charge="150">ঢাকার বাইরে (৳১৫০)</option>
+          <option value="Instant Delivery Dhaka" data-charge="200">Instant Delivery (৳২০০+)</option>
         </select>
       </div>
 
@@ -164,15 +153,71 @@
         <textarea id="address" name="address" rows="3" required></textarea>
       </div>
 
-      <p class="note">📌 মোট মূল্য: <strong><span id="total">৳150</span></strong></p>
+      <p class="note">📌 মোট মূল্য: <strong><span id="total">৳১৫০</span></strong></p>
       <input type="hidden" id="total_price" name="total_price" value="150">
 
-      <button type="button" onclick="goToStep2()">পরবর্তী ধাপে যাওন</button>
+      <div class="payment-method">
+        <label for="payment_method">পেমেন্ট পদ্ধতি নির্বাচন করুন:</label>
+        <select id="payment_method" name="payment_method" required>
+          <option value="">-- একটি নির্বাচন করুন --</option>
+          <option value="bkash">Bkash</option>
+          <option value="cod">Cash on Delivery</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="goToStep2()">পরবর্তী ধাপে যান</button>
     </div>
 
-    <!-- Step 2 & ReadMe section skipped here for brevity -->
+    <div id="step2">
+      <div id="bkash-section">
+        <h3>📱 বিকাশ নাম্বার: <span class="highlight">+01641138934</span></h3>
+        <p>উপরের নাম্বারে Send Money করুন এবং নিচে তথ্য দিন:</p>
 
+        <label><input type="checkbox" id="agreement"> আমি নিশ্চিত করছি যে আমি বিকাশে টাকা পাঠিয়েছি।</label>
+      </div>
+
+      <label><input type="checkbox" id="policy-agree" required> আমি <a href="#" onclick="toggleReadme(event)">নিয়মাবলি পড়েছি</a> এবং একমত।</label>
+
+      <div id="readme-content">
+        <strong>📄 অর্ডার ও কপিরাইট সংক্রান্ত ১০টি গুরুত্বপূর্ণ নিয়ম:</strong>
+        <ol>
+          <li>অর্ডার কনফার্ম হওয়ার পর সেটি ক্যানসেল করা যাবে না।</li>
+          <li>প্রয়োজনীয় তথ্য না দিলে অর্ডার দেরি হতে পারে।</li>
+          <li>ডিজিটাল প্রোডাক্ট হওয়ায় রিফান্ড নীতিমালা সীমিত।</li>
+          <li>Pendrive প্রোডাক্টে কুরিয়ার ড্যামেজের জন্য দায় নেয়া হয় না।</li>
+          <li>সকল কনটেন্ট কেবল শিক্ষামূলক উদ্দেশ্যে সরবরাহ করা হয়।</li>
+          <li>এই গ্রাফিক্স প্যাকের কোনো অংশ পুনরায় বিক্রি করা যাবে না।</li>
+          <li>গ্রাহক নিজ দায়িত্বে কপিরাইট আইন মেনে ব্যবহার করবেন।</li>
+          <li>প্রয়োজনে WhatsApp বা ফোনে যোগাযোগ করতে পারেন।</li>
+          <li>অর্ডার সম্পূর্ণ হলে ২৪ ঘণ্টার মধ্যে ডেলিভারি নিশ্চিত হয়।</li>
+          <li>সকল আইনী অধিকার সংরক্ষিত: © Esran Creative Corner</li>
+        </ol>
+      </div>
+
+      <div id="payment-fields">
+        <label for="payment_number">যে নাম্বার থেকে পাঠিয়েছেন:</label>
+        <input type="tel" name="payment_number">
+
+        <label for="trxid">Bkash Transaction ID:</label>
+        <input type="text" id="trxid" name="trxid">
+      </div>
+
+      <button type="submit">✅ অর্ডার কনফার্ম করুন</button>
+    </div>
   </form>
+
+  <div class="disclaimer">
+    ⚠️ এই Graphics Pack শুধুমাত্র শিক্ষামূলক কাজে ব্যবহারের জন্য। পুনঃবিক্রয় ও কপিরাইট লঙ্ঘন করা আইনত দণ্ডনীয়।<br>
+    <span style="display:block; margin-top: 10px;">© Esran Creative Corner</span>
+  </div>
+
+  <div id="thank-you">
+    <h2>🎉 Thank You For Your Purchase!</h2>
+    <p>আপনার অর্ডার সফলভাবে সাবমিট হয়েছে।</p>
+    <p>সাহায্যের জন্য কল করুন: <strong>+01518927820</strong></p>
+  </div>
+
+  <div class="footer-note">Made with ❤️ by Esran Creative Corner</div>
 </section>
 
 <script>
@@ -184,13 +229,10 @@
   const totalInput = document.getElementById("total_price");
   const addressSection = document.getElementById("address-section");
   const addressField = document.getElementById("address");
-
-  const pendriveImages = {
-    "SanDisk Ultra Flair 128GB": "https://m.media-amazon.com/images/I/61vJbYzWxhL._AC_SL1500_.jpg",
-    "HP x765w 128GB": "https://m.media-amazon.com/images/I/61G3F5aOHiL._AC_SL1500_.jpg",
-    "Transcend JetFlash 128GB": "https://m.media-amazon.com/images/I/61rI4ZuC4cL._AC_SL1500_.jpg",
-    "Samsung BAR Plus 128GB": "https://m.media-amazon.com/images/I/71Y9BvKcwVL._AC_SL1500_.jpg"
-  };
+  const bkashSection = document.getElementById("bkash-section");
+  const paymentFields = document.getElementById("payment-fields");
+  const paymentMethod = document.getElementById("payment_method");
+  const agreementCheckbox = document.getElementById("agreement");
 
   function calculateTotal() {
     let total = 150;
@@ -212,27 +254,74 @@
       pendriveSection.style.display = "none";
       addressSection.style.display = "none";
       addressField.removeAttribute("required");
-      totalDisplay.textContent = "৳150";
+      totalDisplay.textContent = "৳১৫০";
       totalInput.value = 150;
     }
   });
 
-  pendriveModel.addEventListener("change", () => {
-    calculateTotal();
-    const selected = pendriveModel.value;
-    const imageBox = document.getElementById("pendrive-image");
-    const imageTag = document.getElementById("pendrive-preview");
+  pendriveModel.addEventListener("change", calculateTotal);
+  deliverySelect.addEventListener("change", calculateTotal);
 
-    if (pendriveImages[selected]) {
-      imageTag.src = pendriveImages[selected];
-      imageBox.style.display = "block";
+  paymentMethod.addEventListener("change", () => {
+    if (paymentMethod.value === "bkash") {
+      bkashSection.style.display = "block";
+      paymentFields.style.display = "block";
+      agreementCheckbox.required = true;
     } else {
-      imageBox.style.display = "none";
-      imageTag.src = "";
+      bkashSection.style.display = "none";
+      paymentFields.style.display = "none";
+      agreementCheckbox.required = false;
     }
   });
 
-  deliverySelect.addEventListener("change", calculateTotal);
+  function goToStep2() {
+    const inputs = document.querySelectorAll("#step1 input, #step1 select, #step1 textarea");
+    let allValid = true;
+    inputs.forEach(input => {
+      if (input.offsetParent !== null && !input.checkValidity()) {
+        input.reportValidity();
+        allValid = false;
+      }
+    });
+    if (allValid) {
+      document.getElementById("step1").style.display = "none";
+      document.getElementById("step2").style.display = "block";
+    }
+  }
+
+  function toggleReadme(event) {
+    event.preventDefault();
+    const readme = document.getElementById("readme-content");
+    readme.style.display = readme.style.display === "block" ? "none" : "block";
+  }
+
+  document.getElementById("order-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const form = e.target;
+    if (paymentMethod.value === "bkash" && !agreementCheckbox.checked) {
+      alert("দয়া করে বিকাশ কনফার্মেশন টিক দিন অথবা অন্য পেমেন্ট অপশন বেছে নিন।");
+      return;
+    }
+    if (!document.getElementById("policy-agree").checked) {
+      alert("দয়া করে নিয়মাবলিতে টিক দিন।");
+      return;
+    }
+
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        form.style.display = "none";
+        document.getElementById("thank-you").style.display = "block";
+      } else {
+        alert("সাবমিশনে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+      }
+    }).catch(() => {
+      alert("নেটওয়ার্ক সমস্যার কারণে ফর্ম সাবমিট হয়নি।");
+    });
+  });
 </script>
 
 </body>
