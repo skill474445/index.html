@@ -69,21 +69,6 @@
       background: #218838;
     }
 
-    .back-btn {
-      background: #007bff;
-      color: white;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-      margin-right: 10px;
-    }
-
-    .back-btn:hover {
-      background: #0056b3;
-    }
-
     .attention {
       background: #fff3cd;
       padding: 15px;
@@ -94,134 +79,108 @@
       color: #856404;
     }
 
-    .image-preview {
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    .image-preview img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      padding: 5px;
-      background: #fff;
-    }
-
     .branding {
       text-align: center;
       margin-top: 20px;
       font-size: 13px;
       color: #888;
     }
+
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h2><i class="fas fa-palette"></i> Graphics Pack অর্ডার ফর্ম</h2>
-    <div class="branding">Powered by <strong>Esran Creative Corner</strong></div>
+    <!-- Order Form Page -->
+    <div id="formPage" class="form-section active">
+      <h2><i class="fas fa-palette"></i> Graphics Pack অর্ডার ফর্ম</h2>
+      <label for="name">আপনার নাম:</label>
+      <input type="text" id="name" required>
 
-    <!-- Form Section 1: Order Form -->
-    <div id="section1" class="form-section active">
-      <!-- Input fields like Name, Email, Phone, Graphics Pack Type -->
-      <!-- Next button -->
-      <button class="btn" onclick="goToSection(2)">পরবর্তী ধাপে যান</button>
+      <label for="phone">মোবাইল নম্বর:</label>
+      <input type="text" id="phone" required>
+
+      <label for="email">ইমেইল ঠিকানা:</label>
+      <input type="email" id="email" required>
+
+      <label for="pack">আপনি কোন প্যাক নিতে চান?</label>
+      <select id="pack">
+        <option value="graphics">Graphics Pack (ডাউনলোড)</option>
+        <option value="pendrive">Graphics Pack + Pendrive</option>
+      </select>
+
+      <label for="delivery">ডেলিভারি অপশন:</label>
+      <select id="delivery">
+        <option value="inside">ঢাকার ভিতরে</option>
+        <option value="outside">ঢাকার বাইরে</option>
+        <option value="instant">ডিজিটাল ইনস্ট্যান্ট ডেলিভারি</option>
+      </select>
+
+      <div class="navigation-buttons">
+        <div></div>
+        <button class="btn" onclick="goToSummary()">পরবর্তী</button>
+      </div>
+      <div class="branding">Powered by <strong>Esran Creative Corner</strong></div>
     </div>
 
-    <!-- Form Section 2: Order Summary + Agreement + Warning -->
-    <div id="section2" class="form-section">
-      <h3>আপনার অর্ডার সারাংশ</h3>
-      <p>এখানে ইউজার ইনফরমেশন ও গ্রাফিক্স প্যাক টাইপ প্রিভিউ দেখানো হবে</p>
-      <div class="attention">
-        ⚠️ সতর্কতা: ভুল ইমেইল বা ফোন নম্বর দিলে আপনার অর্ডার বাতিল হতে পারে।
-      </div>
-      <h4>✒️ ইউজার এগ্রিমেন্ট</h4>
+    <!-- Order Summary + Warning Page -->
+    <div id="summaryPage" class="form-section">
+      <h2>অর্ডার সারাংশ ও সতর্কতা</h2>
+      <p><strong>আপনার দেওয়া তথ্য:</strong></p>
       <ul>
-        <li>➤ এই গ্রাফিক্স প্যাকটি শুধুমাত্র ব্যক্তিগত বা ব্র্যান্ডিং কাজের জন্য।</li>
-        <li>➤ আপনি এটি পুনরায় বিক্রি বা শেয়ার করতে পারবেন না।</li>
-        <li>➤ প্রতিটি ফাইল ডিজিটাল কপিরাইটযুক্ত।</li>
-        <li>➤ কোনো পরিবর্তন বা এডিট করতে হলে নিজ দায়িত্বে করবেন।</li>
-        <li>➤ আমরা কোন ক্ষতির জন্য দায়ী থাকব না।</li>
-        <li>➤ একবার পেমেন্ট হলে ফেরতযোগ্য নয়।</li>
-        <li>➤ আপনি সব ফাইল সময়মতো পাবেন।</li>
-        <li>➤ Pendrive অর্ডার করলে কুরিয়ারের দেরিতে দেরি হতে পারে।</li>
-        <li>➤ যেকোনো সমস্যা হলে আমাদের সাথে যোগাযোগ করুন।</li>
-        <li>➤ অর্ডার মানেই এই শর্তাবলী আপনি মেনে নিচ্ছেন।</li>
+        <li>নাম: <span id="summaryName"></span></li>
+        <li>মোবাইল: <span id="summaryPhone"></span></li>
+        <li>ইমেইল: <span id="summaryEmail"></span></li>
+        <li>প্যাক: <span id="summaryPack"></span></li>
+        <li>ডেলিভারি: <span id="summaryDelivery"></span></li>
       </ul>
-      <button class="back-btn" onclick="goToSection(1)">⏪ আগের ধাপে যান</button>
-      <button class="btn" onclick="goToNextStep()">পরবর্তী ধাপে যান</button>
-    </div>
-
-    <!-- Form Section 3: Payment Option or Confirmation -->
-    <div id="section3" class="form-section">
-      <div id="paymentSection">
-        <h3>পেমেন্ট করুন</h3>
-        <p>বিকাশ নাম্বার: <strong>01641138934</strong></p>
-        <p>পেমেন্ট করার পর আপনার ট্রানজেকশন আইডি দিন</p>
-        <input type="text" placeholder="Transaction ID">
-        <button class="back-btn" onclick="goToSection(2)">⏪ আগের ধাপে যান</button>
-        <button class="btn" onclick="goToSection(4)">অর্ডার কনফার্ম করুন</button>
+      <div class="attention">
+        ⚠️ সতর্কবার্তা: একবার অর্ডার নিশ্চিত হলে তা বাতিল করা যাবে না। আপনি প্রদত্ত তথ্যের জন্য সম্পূর্ণ দায়ী থাকবেন।<br>
+        ✔️ আমরা আপনার তথ্য নিরাপদে সংরক্ষণ করব এবং যথাযথভাবে আপনার পণ্য ডেলিভারি করব।
       </div>
+      <div class="navigation-buttons">
+        <button class="btn" onclick="goToForm()">আগের ধাপ</button>
+        <button class="btn" onclick="goNextStep()">পরবর্তী</button>
+      </div>
+      <div class="branding">Powered by <strong>Esran Creative Corner</strong></div>
     </div>
 
-    <!-- Section 4: Success Page -->
-    <div id="section4" class="form-section">
-      <h2 style="text-align:center; font-size: 28px; margin-bottom: 20px;">
-        <span id="blinkText">🎉 অভিনন্দন!</span>
-      </h2>
-      <p style="font-size: 18px; text-align: center;">
-        <strong>Esran Creative Corner</strong> এর পক্ষ থেকে আপনাকে শুভেচ্ছা!<br>
-        আপনি সফলভাবে Graphics Pack অর্ডার করেছেন। আমরা আশা করি এই প্যাকটি ব্যবহার করে আপনি আরও দক্ষ, আত্মবিশ্বাসী এবং ডিজিটাল জগতে প্রতিষ্ঠিত হতে পারবেন।
-      </p>
-      <ul style="margin-top: 30px; font-size: 16px;">
-        <li>✅ প্রতিটি ডিজাইন মানসম্পন্ন এবং ইউজার-রেডি</li>
-        <li>✅ বাংলাভাষী মার্কেটিং-এর জন্য নিখুঁতভাবে সাজানো</li>
-        <li>✅ ইউজার ইন্টারফেস এবং সোশ্যাল মিডিয়ার জন্য অপ্টিমাইজড</li>
-        <li>✅ নিয়মিত আপডেট এবং নতুন কনটেন্ট যুক্ত হবে</li>
-        <li>✅ মোবাইল এবং ডেস্কটপ-উপযোগী ফরম্যাটে</li>
-        <li>✅ প্রফেশনাল ডিজাইন মান বজায় রাখা হয়েছে</li>
-        <li>✅ কম সময়ে বেশি কাজ করার সুবিধা</li>
-        <li>✅ আপনার ব্র্যান্ডিংয়ের জন্য কাস্টমাইজড করা যায়</li>
-        <li>✅ সময় বাঁচাবে এবং দক্ষতা বাড়াবে</li>
-        <li>✅ Esran Creative Corner এর অভিজ্ঞ টিম দ্বারা তৈরি</li>
-      </ul>
-      <p class="branding">Copyright © 2025 — <strong>Esran Creative Corner</strong></p>
-    </div>
+    <!-- Success / Payment Page will appear conditionally (already added before) -->
   </div>
 
-  <style>
-    #blinkText {
-      animation: blink-color 1s infinite;
-    }
-
-    @keyframes blink-color {
-      0% { color: #e91e63; }
-      25% { color: #2196f3; }
-      50% { color: #4caf50; }
-      75% { color: #ff9800; }
-      100% { color: #9c27b0; }
-    }
-  </style>
-
   <script>
-    let packType = ""; // set from form
-
-    function goToSection(n) {
-      document.querySelectorAll('.form-section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById("section" + n).classList.add("active");
+    function goToSummary() {
+      document.getElementById("formPage").classList.remove("active");
+      document.getElementById("summaryPage").classList.add("active");
+      
+      document.getElementById("summaryName").textContent = document.getElementById("name").value;
+      document.getElementById("summaryPhone").textContent = document.getElementById("phone").value;
+      document.getElementById("summaryEmail").textContent = document.getElementById("email").value;
+      document.getElementById("summaryPack").textContent = document.getElementById("pack").value;
+      document.getElementById("summaryDelivery").textContent = document.getElementById("delivery").value;
     }
 
-    function goToNextStep() {
-      // Here you'd check packType (e.g., only graphics or pendrive)
-      const isPendrive = true; // Replace with real check from input
-      if (isPendrive) {
-        goToSection(3);
+    function goToForm() {
+      document.getElementById("summaryPage").classList.remove("active");
+      document.getElementById("formPage").classList.add("active");
+    }
+
+    function goNextStep() {
+      const selectedPack = document.getElementById("pack").value;
+      document.getElementById("summaryPage").classList.remove("active");
+      if (selectedPack === "pendrive") {
+        alert("পেমেন্ট পেইজ এখনো যুক্ত হয়নি (demo) - Pendrive সহ নেওয়া হলে এই পেইজ আসবে।");
       } else {
-        goToSection(4);
+        showSuccessPage();
       }
     }
   </script>
+
 </body>
 
 </html>
