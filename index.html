@@ -1,191 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>কে হবে কোটি পতি - Dhadha Game</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>কে হবে কোটিপতি - ধাঁধা গেম</title>
   <style>
     body {
-      font-family: 'Comic Neue', cursive;
+      font-family: 'Arial', sans-serif;
       background: linear-gradient(to right, #ffecd2, #fcb69f);
-      color: #333;
       margin: 0;
       padding: 0;
       text-align: center;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
     }
     h1 {
-      margin-top: 30px;
-      font-size: 2.5rem;
       color: #e91e63;
+      font-size: 2.5rem;
     }
-    .game-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
+    .intro, .game, .game-over {
+      display: none;
     }
-    .question-box {
-      background: #fff3e0;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
+    .visible {
+      display: block;
     }
     .option {
-      width: 45%;
-      margin: 10px 0;
-      padding: 15px;
-      background: linear-gradient(45deg, #fceabb, #f8b500);
-      border-radius: 20px;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #ffecb3;
       cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.2s;
+      transition: background-color 0.3s;
     }
     .option:hover {
-      transform: scale(1.05);
-      background: linear-gradient(45deg, #ffe259, #ffa751);
+      background-color: #ffe082;
     }
     .timer {
       font-size: 1.5rem;
-      color: #ff5722;
       margin: 10px 0;
+      color: #d32f2f;
     }
-    .lifelines {
-      margin: 20px 0;
-    }
-    .lifeline {
-      padding: 10px 15px;
-      margin: 0 5px;
-      background: #8bc34a;
+    .btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #4caf50;
       color: white;
-      border-radius: 10px;
       cursor: pointer;
-    }
-    .scoreboard {
-      margin: 20px 0;
-      font-size: 1.2rem;
-    }
-    .game-over {
-      background: #ffcdd2;
-      padding: 20px;
-      border-radius: 15px;
       margin-top: 20px;
     }
-    .leaderboard {
-      background: #e3f2fd;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 30px;
-    }
-    .leaderboard h3 {
-      color: #1976d2;
+    .btn:hover {
+      background-color: #388e3c;
     }
   </style>
 </head>
 <body>
-  <h1>কে হবে কোটি পতি?</h1>
-  <div class="game-container">
-    <div class="question-box">
-      <div id="question">Question will appear here</div>
-      <div class="options">
-        <div class="option" onclick="selectOption(0)">Option A</div>
-        <div class="option" onclick="selectOption(1)">Option B</div>
-        <div class="option" onclick="selectOption(2)">Option C</div>
-        <div class="option" onclick="selectOption(3)">Option D</div>
-      </div>
-      <div class="timer">Time left: <span id="timer">10</span>s</div>
+  <div class="container">
+    <div class="intro visible" id="intro">
+      <h1>কে হবে কোটিপতি</h1>
+      <p>এই গেমে থাকবে ৫০টি ধাঁধা প্রশ্ন। প্রতিটি প্রশ্নের চারটি করে অপশন থাকবে এবং উত্তর দিতে হবে ১০ সেকেন্ডের মধ্যে। ভুল উত্তর দিলে গেম শেষ। সঠিকভাবে সব প্রশ্ন উত্তরের মাধ্যমে আপনি জিতে নিতে পারেন সেরা স্কোর।</p>
+      <button class="btn" onclick="startGame()">গেম শুরু করুন</button>
     </div>
-    <div class="lifelines">
-      <span class="lifeline">50:50</span>
-      <span class="lifeline">Skip</span>
-      <span class="lifeline">Audience Poll</span>
-      <span class="lifeline">Expert Advice</span>
+
+    <div class="game" id="game">
+      <div class="timer">সময় বাকি: <span id="time">10</span> সেকেন্ড</div>
+      <h2 id="question">প্রশ্ন লোড হচ্ছে...</h2>
+      <div id="options"></div>
+      <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>পরবর্তী</button>
     </div>
-    <div class="scoreboard">
-      Score: <span id="score">0</span> | Level: <span id="level">1</span>
-    </div>
-    <div class="game-over" id="gameOver" style="display:none">
-      <h2>Game Over!</h2>
-      <p>You answered <span id="correctCount">0</span> correctly out of <span id="totalQuestions">0</span></p>
-      <p>Your Score: <span id="finalScore">0</span></p>
-      <p>Accuracy: <span id="accuracy">0</span>%</p>
-      <button onclick="addToLeaderboard()">Add to Leaderboard</button>
-    </div>
-    <div class="leaderboard" id="leaderboard">
-      <h3>🏆 Leaderboard</h3>
-      <p>All Time | This Week | Today</p>
-      <ul id="leaderboardList">
-        <li>Player1 - 80%</li>
-        <li>Player2 - 75%</li>
-        <li>Player3 - 70%</li>
-      </ul>
+
+    <div class="game-over" id="gameOver">
+      <h2>গেম শেষ!</h2>
+      <p>আপনার স্কোর: <span id="finalScore">0</span></p>
+      <button class="btn" onclick="restartGame()">আবার শুরু করুন</button>
     </div>
   </div>
-  <script>
-    // Game logic placeholder
-    let timer = 10;
-    let score = 0;
-    let questionIndex = 0;
-    let totalQuestions = 5;
-    let correctCount = 0;
-    let interval;
 
-    function startTimer() {
-      timer = 10;
-      document.getElementById("timer").textContent = timer;
-      interval = setInterval(() => {
-        timer--;
-        document.getElementById("timer").textContent = timer;
-        if (timer === 0) {
-          clearInterval(interval);
-          gameOver();
+  <script>
+    const questions = [
+      { q: "পাঁচটি ফল একটিতে ঢুকে থাকে, সেটি কী?", options: ["আনারস", "কলা", "আম", "কাঁঠাল"], correct: 3 },
+      { q: "সাপ ছাড়া কোন প্রাণী দংশন করতে পারে?", options: ["মাছ", "পিঁপড়ে", "গরু", "পাখি"], correct: 1 },
+      // ... আরও প্রশ্ন যোগ করুন
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timer;
+    let timeLeft = 10;
+    let answered = false;
+
+    function startGame() {
+      document.getElementById('intro').classList.remove('visible');
+      document.getElementById('game').classList.add('visible');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      answered = false;
+      document.getElementById('nextBtn').disabled = true;
+      const q = questions[currentQuestion];
+      document.getElementById('question').textContent = q.q;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.textContent = opt;
+        div.onclick = () => selectOption(idx);
+        optionsDiv.appendChild(div);
+      });
+      timeLeft = 10;
+      document.getElementById('time').textContent = timeLeft;
+      clearInterval(timer);
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('time').textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          gameOver(false);
         }
       }, 1000);
     }
 
-    function selectOption(selected) {
-      clearInterval(interval);
-      // Dummy correct answer for now:
-      const correct = 1;
-      if (selected === correct) {
-        score += 10;
-        correctCount++;
-        questionIndex++;
-        if (questionIndex < totalQuestions) {
-          nextQuestion();
-        } else {
-          gameOver();
-        }
+    function selectOption(index) {
+      if (answered) return;
+      answered = true;
+      clearInterval(timer);
+      const q = questions[currentQuestion];
+      const options = document.getElementById('options').children;
+      if (index === q.correct) {
+        options[index].style.backgroundColor = '#81c784';
+        score++;
+        document.getElementById('nextBtn').disabled = false;
       } else {
-        gameOver();
+        options[index].style.backgroundColor = '#e57373';
+        gameOver(false);
       }
     }
 
     function nextQuestion() {
-      document.getElementById("question").textContent = `Question ${questionIndex + 1}`;
-      document.getElementById("score").textContent = score;
-      document.getElementById("level").textContent = Math.floor(questionIndex / 5) + 1;
-      startTimer();
+      currentQuestion++;
+      if (currentQuestion >= questions.length) {
+        gameOver(true);
+      } else {
+        showQuestion();
+      }
     }
 
-    function gameOver() {
-      document.getElementById("gameOver").style.display = "block";
-      document.getElementById("correctCount").textContent = correctCount;
-      document.getElementById("totalQuestions").textContent = questionIndex;
-      document.getElementById("finalScore").textContent = score;
-      document.getElementById("accuracy").textContent = Math.floor((correctCount / questionIndex) * 100) || 0;
+    function gameOver(finished) {
+      document.getElementById('game').classList.remove('visible');
+      document.getElementById('gameOver').classList.add('visible');
+      document.getElementById('finalScore').textContent = score + " / " + questions.length;
     }
 
-    function addToLeaderboard() {
-      alert("Added to leaderboard (demo only).");
+    function restartGame() {
+      currentQuestion = 0;
+      score = 0;
+      document.getElementById('gameOver').classList.remove('visible');
+      document.getElementById('game').classList.add('visible');
+      showQuestion();
     }
-
-    nextQuestion();
   </script>
 </body>
 </html>
