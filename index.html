@@ -7,23 +7,25 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      color: #222;
+      background: #f5f7fa;
+      color: #1a1a1a;
       margin: 0;
       padding: 20px;
     }
     .form-step {
       max-width: 600px;
       margin: 20px auto;
-      background: white;
+      background: #ffffff;
       border-radius: 12px;
       padding: 25px 30px;
-      box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
+      box-shadow: 0 8px 20px rgba(27, 31, 39, 0.05);
+      border-left: 8px solid #1d7dd6;
     }
     h2 {
-      color: #0b3954;
+      color: #1d7dd6;
       margin-bottom: 20px;
       text-align: center;
+      font-weight: 700;
     }
     label {
       display: block;
@@ -37,7 +39,7 @@
     select {
       width: 100%;
       padding: 10px 12px;
-      border: 1.8px solid #ccc;
+      border: 2px solid #ddd;
       border-radius: 8px;
       font-size: 1rem;
       margin-top: 6px;
@@ -49,6 +51,7 @@
     select:focus {
       border-color: #1d7dd6;
       outline: none;
+      box-shadow: 0 0 8px rgba(29, 125, 214, 0.5);
     }
     .btn {
       display: inline-block;
@@ -66,12 +69,12 @@
       background: #145ea8;
     }
     .back-btn {
-      background: #bbb;
+      background: #ddd;
       color: #333;
       margin-right: 10px;
     }
     .back-btn:hover {
-      background: #999;
+      background: #bbb;
     }
     .hidden {
       display: none;
@@ -133,7 +136,7 @@
     input[type="number"] {
       width: 100%;
       padding: 10px 12px;
-      border: 1.8px solid #ccc;
+      border: 2px solid #ddd;
       border-radius: 8px;
       font-size: 1rem;
       margin-top: 6px;
@@ -159,7 +162,7 @@
   <label>প্যাকেজ নির্বাচন করুন:</label>
   <select id="packType">
     <option value="" disabled selected>প্যাকেজ নির্বাচন করুন</option>
-    <option value="graphics">শুধুমাত্র Graphics Pack - 150 টাকা</option>
+    <option value="graphics">শুধুমাত্র Graphics Pack - ১৫০ টাকা</option>
     <option value="pendrive">Pendrive সহ Graphics Pack</option>
   </select>
   <div id="errorPack" class="error"></div>
@@ -168,23 +171,25 @@
     <label>Pendrive মডেল নির্বাচন করুন:</label>
     <select id="pendriveModel">
       <option value="" disabled selected>মডেল নির্বাচন করুন</option>
-      <option value="sandisk_16" data-price="400">SanDisk 16GB - 400 টাকা</option>
-      <option value="samsung_32" data-price="700">Samsung 32GB - 700 টাকা</option>
-      <option value="kingston_64" data-price="1200">Kingston 64GB - 1200 টাকা</option>
+      <option value="sandisk_16" data-price="600">SanDisk 16GB - 600 টাকা</option>
+      <option value="samsung_32" data-price="850">Samsung 32GB - 850 টাকা</option>
+      <option value="kingston_64" data-price="1350">Kingston 64GB - 1350 টাকা</option>
     </select>
     <div id="errorPendriveModel" class="error"></div>
   </div>
 
-  <label>ডেলিভারি:</label>
-  <select id="delivery">
-    <option value="" disabled selected>ডেলিভারি নির্বাচন করুন</option>
-    <option value="inside_dhaka">ঢাকার ভিতরে</option>
-    <option value="outside_dhaka">ঢাকার বাইরে</option>
-    <option value="instant_delivery">ইন্সট্যান্ট ডেলিভারি (শুধুমাত্র ঢাকার ভিতরে)</option>
-  </select>
-  <div id="errorDelivery" class="error"></div>
+  <div id="deliverySection" style="display:none; margin-top: 12px;">
+    <label>ডেলিভারি:</label>
+    <select id="delivery">
+      <option value="" disabled selected>ডেলিভারি নির্বাচন করুন</option>
+      <option value="inside_dhaka">ঢাকার ভিতরে</option>
+      <option value="outside_dhaka">ঢাকার বাইরে</option>
+      <option value="instant_delivery">ইন্সট্যান্ট ডেলিভারি (শুধুমাত্র ঢাকার ভিতরে)</option>
+    </select>
+    <div id="errorDelivery" class="error"></div>
+  </div>
 
-  <p class="price-info" id="totalPrice">মোট মূল্য: 0 টাকা</p>
+  <p class="price-info" id="totalPrice">মোট মূল্য: ০ টাকা</p>
 
   <button class="btn" onclick="validateAndNext()">পরবর্তী ধাপে যান</button>
 
@@ -222,7 +227,7 @@
   <h2>পেমেন্ট করুন (Pendrive সহ অর্ডার)</h2>
 
   <p>আপনি Pendrive সহ Graphics Pack অর্ডার করেছেন। নিচের বিকাশ নম্বরে পেমেন্ট সম্পন্ন করুন:</p>
-  <h3 style="color: green;">বিকাশ নম্বর: 01641138934</h3>
+  <h3 style="color: #1d7dd6;">বিকাশ নম্বর: 01641138934</h3>
 
   <label>বিকাশ থেকে পাঠানো নম্বর (যে নম্বর থেকে টাকা পাঠিয়েছেন):</label>
   <input type="tel" id="bkashSender" placeholder="যেমন: 01XXXXXXXXX" />
@@ -278,6 +283,7 @@
   const packSelect = document.getElementById('packType');
   const pendriveModelsDiv = document.getElementById('pendriveModels');
   const pendriveSelect = document.getElementById('pendriveModel');
+  const deliverySection = document.getElementById('deliverySection');
   const deliverySelect = document.getElementById('delivery');
   const totalPriceDisplay = document.getElementById('totalPrice');
   const summaryDiv = document.getElementById('summary');
@@ -303,17 +309,25 @@
   const deliveryFees = {
     inside_dhaka: 80,
     outside_dhaka: 150,
-    instant_delivery: 200 // Minimum for instant delivery; will be dynamic
+    instant_delivery_min: 200,
+    instant_delivery_max: 350,
   };
 
-  // Show/hide pendrive models when pendrive pack selected
+  // Show/hide pendrive models and delivery based on pack selection
   packSelect.addEventListener('change', () => {
     if (packSelect.value === 'pendrive') {
       pendriveModelsDiv.style.display = 'block';
-    } else {
+      deliverySection.style.display = 'block';
+    } else if (packSelect.value === 'graphics') {
       pendriveModelsDiv.style.display = 'none';
       pendriveSelect.value = '';
+      deliverySection.style.display = 'none';
+      deliverySelect.value = '';
       errorPendriveModel.innerText = '';
+      errorDelivery.innerText = '';
+    } else {
+      pendriveModelsDiv.style.display = 'none';
+      deliverySection.style.display = 'none';
     }
     updatePrice();
   });
@@ -328,27 +342,25 @@
       total = graphicsPackPrice;
     } else if (packSelect.value === 'pendrive') {
       total = graphicsPackPrice;
-      // Pendrive price
       if (pendriveSelect.value) {
         const selectedOption = pendriveSelect.options[pendriveSelect.selectedIndex];
         const pendrivePrice = Number(selectedOption.getAttribute('data-price')) || 0;
         total += pendrivePrice;
       }
+      // Add delivery fee if selected
+      if (deliverySelect.value === 'inside_dhaka') {
+        total += deliveryFees.inside_dhaka;
+      } else if (deliverySelect.value === 'outside_dhaka') {
+        total += deliveryFees.outside_dhaka;
+      } else if (deliverySelect.value === 'instant_delivery') {
+        // Random between min and max
+        const randFee = Math.floor(
+          deliveryFees.instant_delivery_min +
+            Math.random() * (deliveryFees.instant_delivery_max - deliveryFees.instant_delivery_min)
+        );
+        total += randFee;
+      }
     }
-
-    // Delivery fee
-    let deliveryFee = 0;
-    if (deliverySelect.value === 'inside_dhaka') {
-      deliveryFee = deliveryFees.inside_dhaka;
-    } else if (deliverySelect.value === 'outside_dhaka') {
-      deliveryFee = deliveryFees.outside_dhaka;
-    } else if (deliverySelect.value === 'instant_delivery') {
-      // instant delivery fee from 200 to 350 randomly for demo
-      deliveryFee = Math.floor(200 + Math.random() * 150);
-    }
-
-    total += deliveryFee;
-
     totalPriceDisplay.innerText = `মোট মূল্য: ${total} টাকা`;
   }
 
@@ -404,7 +416,7 @@
       errorPendriveModel.innerText = 'পেনড্রাইভ মডেল নির্বাচন করুন।';
       valid = false;
     }
-    if (!deliverySelect.value) {
+    if (packSelect.value === 'pendrive' && !deliverySelect.value) {
       errorDelivery.innerText = 'ডেলিভারি নির্বাচন করুন।';
       valid = false;
     }
@@ -424,23 +436,23 @@
       const pendriveOption = pendriveSelect.options[pendriveSelect.selectedIndex];
       packText = `Pendrive সহ Graphics Pack (${pendriveOption.text})`;
     }
-
     let deliveryText = '';
-    if (deliverySelect.value === 'inside_dhaka') deliveryText = 'ঢাকার ভিতরে';
-    else if (deliverySelect.value === 'outside_dhaka') deliveryText = 'ঢাকার বাইরে';
-    else if (deliverySelect.value === 'instant_delivery') deliveryText = 'ইন্সট্যান্ট ডেলিভারি (শুধুমাত্র ঢাকার ভিতরে)';
+    if (packSelect.value === 'pendrive') {
+      const deliveryOption = deliverySelect.options[deliverySelect.selectedIndex];
+      deliveryText = deliveryOption ? deliveryOption.text : '';
+    }
 
     summaryDiv.innerHTML = `
-      <p class="summary-item">নাম: ${nameInput.value}</p>
-      <p class="summary-item">ফোন: ${phoneInput.value}</p>
-      <p class="summary-item">ইমেইল: ${emailInput.value}</p>
+      <p class="summary-item">নাম: ${nameInput.value.trim()}</p>
+      <p class="summary-item">ফোন: ${phoneInput.value.trim()}</p>
+      <p class="summary-item">ইমেইল: ${emailInput.value.trim()}</p>
       <p class="summary-item">প্যাকেজ: ${packText}</p>
-      <p class="summary-item">ডেলিভারি: ${deliveryText}</p>
+      ${packSelect.value === 'pendrive' ? `<p class="summary-item">ডেলিভারি: ${deliveryText}</p>` : ''}
       <p class="summary-item" style="font-weight:bold; color:#1d7dd6;">${totalPriceDisplay.innerText}</p>
     `;
   }
 
-  // Step 2 next with agreement check
+  // Step 2 next button with agreement validation
   function goNextStep() {
     errorAgreement.innerText = '';
     if (!userAgreementCheckbox.checked) {
@@ -456,7 +468,7 @@
     }
   }
 
-  // Validate payment step and go to success
+  // Validate payment info and go to success page
   function validatePayment() {
     errorBkashSender.innerText = '';
     errorTransactionId.innerText = '';
@@ -474,7 +486,7 @@
     showStep(4);
   }
 
-  // Update price on page load
+  // Initial price update
   updatePrice();
 </script>
 
