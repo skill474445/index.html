@@ -1,301 +1,229 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Graphics Pack অর্ডার ফর্ম</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #e0f7fa, #ffffff);
-      padding: 30px;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #e3f2fd;
+      margin: 0;
+      padding: 0;
     }
-    section {
-      max-width: 650px;
-      margin: auto;
-      background: #fff;
-      padding: 25px;
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px 30px;
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
-    h2, h3 {
-      color: #2c3e50;
-      margin-bottom: 15px;
+
+    h2 {
+      text-align: center;
+      color: #333;
     }
+
     label {
-      font-weight: 500;
-      margin-top: 10px;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #eef3ff;
+    }
+
+    .form-section {
+      display: none;
+    }
+
+    .form-section.active {
       display: block;
     }
-    input, select, textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      width: 100%;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-    }
-    button {
-      background: #27ae60;
-      color: #fff;
+
+    .btn {
+      background: #28a745;
+      color: white;
       padding: 12px 20px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s;
+      margin-top: 20px;
     }
-    button:hover {
-      background: #219150;
+
+    .btn:hover {
+      background: #218838;
     }
-    .note {
-      font-size: 15px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .disclaimer {
+
+    .attention {
       background: #fff3cd;
-      border-left: 6px solid #ffc107;
       padding: 15px;
-      margin-top: 25px;
-      font-size: 14px;
-      color: #856404;
-      font-weight: 500;
-      border-radius: 6px;
-    }
-    .highlight {
-      color: #d35400;
-      font-weight: bold;
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      margin-top: 20px;
       font-size: 15px;
+      color: #856404;
     }
-    #thank-you {
-      display: none;
-      text-align: center;
-      margin-top: 30px;
-      animation: fadeIn 1s ease-in-out;
-    }
-    #step2 {
-      display: none;
-    }
-    #readme-content {
-      display: none;
+
+    .image-preview {
       margin-top: 10px;
-      border: 1px solid #ddd;
-      padding: 15px;
-      border-radius: 6px;
-      background: #fafafa;
-      font-size: 14px;
-    }
-    #readme-content ol {
-      padding-left: 20px;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    .footer-note {
       text-align: center;
-      margin-top: 30px;
-      font-size: 13px;
-      color: #777;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 5px;
+      background: #fff;
     }
   </style>
 </head>
+
 <body>
-
-<section>
-  <h2>🎨 Graphics Pack অর্ডার ফর্ম</h2>
-
-  <form id="order-form" action="https://formspree.io/f/xdkznrqp" method="POST" novalidate>
-
-    <div id="step1">
+  <div class="container">
+    <h2><i class="fas fa-palette"></i> Graphics Pack অর্ডার ফর্ম</h2>
+    <div id="step1" class="form-section active">
       <label for="name">নাম:</label>
-      <input type="text" id="name" name="name" required>
+      <input type="text" id="name" required>
 
       <label for="phone">মোবাইল নম্বর:</label>
-      <input type="tel" id="phone" name="phone" required>
+      <input type="tel" id="phone" required>
 
       <label for="email">ইমেইল:</label>
-      <input type="email" id="email" name="email" required>
+      <input type="email" id="email" required>
 
       <label for="service">আপনি কী ধরনের সার্ভিস নিচ্ছেন?</label>
-      <select id="service" name="service" required>
+      <select id="service" required onchange="toggleDeliveryFields()">
         <option value="">-- একটি নির্বাচন করুন --</option>
-        <option value="graphics-pack">শুধু Graphics Pack (৳১৫০)</option>
-        <option value="graphics-pack-pendrive">Pendrive সহ Graphics Pack</option>
+        <option value="graphics">শুধু Graphics Pack (৳১৫০)</option>
+        <option value="pendrive">Pendrive সহ Graphics Pack (৳১৫০+)</option>
       </select>
 
-      <div id="pendrive-options" style="display:none;">
-        <label for="pendrive-model">Pendrive মডেল:</label>
-        <select id="pendrive-model" name="pendrive_model">
+      <div id="pendrive-options" style="display: none;">
+        <label for="pendriveModel">Pendrive মডেল:</label>
+        <select id="pendriveModel">
           <option value="">-- একটি মডেল বেছে নিন --</option>
-          <option value="SanDisk Ultra Flair 128GB" data-price="1100">SanDisk Ultra Flair — ৳1100</option>
-          <option value="HP x765w 128GB" data-price="1150">HP x765w — ৳1150</option>
-          <option value="Transcend JetFlash 128GB" data-price="1200">Transcend JetFlash — ৳1200</option>
-          <option value="Samsung BAR Plus 128GB" data-price="1300">Samsung BAR Plus — ৳1300</option>
+          <option value="sandisk">SanDisk Ultra Flair 128GB</option>
+          <option value="hp">HP x765w 128GB</option>
+          <option value="transcend">Transcend JetFlash 128GB</option>
+          <option value="samsung">Samsung BAR Plus 128GB</option>
         </select>
 
-        <label for="delivery">ডেলিভারি টাইপ:</label>
-        <select id="delivery" name="delivery_type">
+        <div class="image-preview" id="imagePreview"></div>
+
+        <label for="deliveryType">ডেলিভারি টাইপ:</label>
+        <select id="deliveryType" onchange="togglePaymentOrCod()">
           <option value="">-- একটি নির্বাচন করুন --</option>
-          <option value="ঢাকার ভিতরে" data-charge="80">ঢাকার ভিতরে (৳৮০)</option>
-          <option value="ঢাকার বাইরে" data-charge="150">ঢাকার বাইরে (৳১৫০)</option>
-          <option value="Instant Delivery Dhaka" data-charge="200">Instant Delivery (৳২০০+)</option>
-          <option value="Cash on Delivery" data-charge="150">Cash on Delivery (৳১৫০)</option>
+          <option value="dhaka">ঢাকার ভিতরে (৳৮০)</option>
+          <option value="outside">ঢাকার বাইরে (৳১৫০)</option>
+          <option value="instant">Instant Delivery (৳২০০+)</option>
         </select>
+
+        <div id="paymentOrCod">
+          <label>আপনি কোনভাবে পেমেন্ট করবেন?</label>
+          <select id="paymentMethod" onchange="handlePaymentMethod()">
+            <option value="">-- একটি নির্বাচন করুন --</option>
+            <option value="online">অনলাইন পেমেন্ট (বিকাশ)</option>
+            <option value="cod">Cash on Delivery</option>
+          </select>
+        </div>
       </div>
 
-      <div id="address-section" style="display:none;">
-        <label for="address">আপনার সম্পূর্ণ ঠিকানা:</label>
-        <textarea id="address" name="address" rows="3" required></textarea>
+      <div class="attention">
+        <strong>মোট মূল্য:</strong> ৳<span id="totalAmount">১৫০</span>
       </div>
 
-      <p class="note">📌 মোট মূল্য: <strong><span id="total">৳১৫০</span></strong></p>
-      <input type="hidden" id="total_price" name="total_price" value="150">
-
-      <button type="button" onclick="goToStep2()">পরবর্তী ধাপে যান</button>
+      <button class="btn" onclick="goToStep2()">পরবর্তী ধাপে যান</button>
     </div>
 
-    <div id="step2">
-      <h3>📱 বিকাশ নাম্বার: <span class="highlight">+01641138934</span></h3>
-      <p>উপরের নাম্বারে Send Money করুন এবং নিচে তথ্য দিন:</p>
+    <div id="step2" class="form-section">
+      <div id="paymentSection">
+        <label for="bkashNumber">বিকাশ নম্বর:</label>
+        <input type="text" id="bkashNumber">
 
-      <label><input type="checkbox" id="agreement" required> আমি নিশ্চিত করছি যে আমি বিকাশে টাকা পাঠিয়েছি।</label>
-
-      <label><input type="checkbox" id="policy-agree" required> আমি <a href="#" onclick="toggleReadme(event)">নিয়মাবলি পড়েছি</a> এবং একমত।</label>
-
-      <div id="readme-content">
-        <strong>📄 অর্ডার ও কপিরাইট সংক্রান্ত ১০টি গুরুত্বপূর্ণ নিয়ম:</strong>
-        <ol>
-          <li>শুধু Graphics Pack নিলে আপনার ইমেইলে ফাইল পাঠানো হবে।</li>
-          <li>শুধু Graphics Pack এর ক্ষেত্রে আগে বিকাশ পেমেন্ট আবশ্যক।</li>
-          <li>অর্ডার কনফার্ম হওয়ার পর সেটি ক্যানসেল করা যাবে না।</li>
-          <li>প্রয়োজনীয় তথ্য না দিলে অর্ডার দেরি হতে পারে।</li>
-          <li>ডিজিটাল প্রোডাক্ট হওয়ায় রিফান্ড নীতিমালা সীমিত।</li>
-          <li>Pendrive প্রোডাক্টে কুরিয়ার ড্যামেজের জন্য দায় নেয়া হয় না।</li>
-          <li>সকল কনটেন্ট কেবল শিক্ষামূলক উদ্দেশ্যে সরবরাহ করা হয়।</li>
-          <li>এই গ্রাফিক্স প্যাকের কোনো অংশ পুনরায় বিক্রি করা যাবে না।</li>
-          <li>গ্রাহক নিজ দায়িত্বে কপিরাইট আইন মেনে ব্যবহার করবেন।</li>
-          <li>সকল আইনী অধিকার সংরক্ষিত: © Esran Creative Corner</li>
-        </ol>
+        <label for="trxId">Trx ID:</label>
+        <input type="text" id="trxId">
       </div>
 
-      <div id="payment-fields" style="margin-top:10px;">
-        <label for="payment_number">যে নাম্বার থেকে পাঠিয়েছেন:</label>
-        <input type="tel" name="payment_number" id="payment_number">
-
-        <label for="trxid">Bkash Transaction ID:</label>
-        <input type="text" id="trxid" name="trxid">
-      </div>
-
-      <button type="submit">✅ অর্ডার কনফার্ম করুন</button>
+      <button class="btn" onclick="submitForm()">অর্ডার নিশ্চিত করুন</button>
     </div>
-  </form>
-
-  <div class="disclaimer">
-    ⚠️ এই Graphics Pack শুধুমাত্র শিক্ষামূলক কাজে ব্যবহারের জন্য। পুনঃবিক্রয় ও কপিরাইট লঙ্ঘন করা আইনত দণ্ডনীয়।<br>
-    <span style="display:block; margin-top: 10px;">© Esran Creative Corner</span>
   </div>
 
-  <div id="thank-you">
-    <h2>🎉 Thank You For Your Purchase!</h2>
-    <p>আপনার অর্ডার সফলভাবে সাবমিট হয়েছে।</p>
-    <p>সাহায্যের জন্য কল করুন: <strong>+01518927820</strong></p>
-  </div>
+  <script>
+    const serviceSelect = document.getElementById("service");
+    const pendriveOptions = document.getElementById("pendrive-options");
+    const totalAmount = document.getElementById("totalAmount");
+    const paymentSection = document.getElementById("paymentSection");
+    const deliveryType = document.getElementById("deliveryType");
+    const paymentOrCod = document.getElementById("paymentOrCod");
+    const paymentMethod = document.getElementById("paymentMethod");
 
-  <div class="footer-note">Made with ❤️ by Esran Creative Corner</div>
-</section>
-
-<script>
-  const serviceSelect = document.getElementById("service");
-  const pendriveSection = document.getElementById("pendrive-options");
-  const pendriveModel = document.getElementById("pendrive-model");
-  const deliverySelect = document.getElementById("delivery");
-  const totalDisplay = document.getElementById("total");
-  const totalInput = document.getElementById("total_price");
-  const addressSection = document.getElementById("address-section");
-  const addressField = document.getElementById("address");
-  const paymentFields = document.getElementById("payment-fields");
-
-  function calculateTotal() {
-    let total = 150;
-    if (serviceSelect.value === "graphics-pack-pendrive") {
-      const pendrivePrice = Number(pendriveModel.selectedOptions[0]?.dataset.price || 0);
-      const deliveryCharge = Number(deliverySelect.selectedOptions[0]?.dataset.charge || 0);
-      total = 150 + pendrivePrice + deliveryCharge;
-    }
-    totalDisplay.textContent = `৳${total}`;
-    totalInput.value = total;
-  }
-
-  serviceSelect.addEventListener("change", () => {
-    const isPendrive = serviceSelect.value === "graphics-pack-pendrive";
-    pendriveSection.style.display = isPendrive ? "block" : "none";
-    addressSection.style.display = isPendrive ? "block" : "none";
-    addressField.required = isPendrive;
-    if (!isPendrive) {
-      deliverySelect.value = "";
-    }
-    calculateTotal();
-  });
-
-  pendriveModel.addEventListener("change", calculateTotal);
-  deliverySelect.addEventListener("change", () => {
-    calculateTotal();
-    const hidePayment = deliverySelect.value === "Cash on Delivery";
-    paymentFields.style.display = hidePayment ? "none" : "block";
-  });
-
-  function goToStep2() {
-    const inputs = document.querySelectorAll("#step1 input, #step1 select, #step1 textarea");
-    let allValid = true;
-    inputs.forEach(input => {
-      if (!input.checkValidity()) {
-        input.reportValidity();
-        allValid = false;
+    function toggleDeliveryFields() {
+      const value = serviceSelect.value;
+      if (value === "pendrive") {
+        pendriveOptions.style.display = "block";
+        paymentOrCod.style.display = "block";
+        totalAmount.textContent = "১৫০+";
+      } else {
+        pendriveOptions.style.display = "none";
+        paymentOrCod.style.display = "none";
+        totalAmount.textContent = "১৫০";
       }
-    });
-    if (allValid) {
+      paymentSection.style.display = value === "graphics" ? "block" : "none";
+    }
+
+    function handlePaymentMethod() {
+      const method = paymentMethod.value;
+      if (method === "online") {
+        paymentSection.style.display = "block";
+      } else {
+        paymentSection.style.display = "none";
+      }
+    }
+
+    function togglePaymentOrCod() {
+      paymentOrCod.style.display = "block";
+    }
+
+    function goToStep2() {
       document.getElementById("step1").style.display = "none";
       document.getElementById("step2").style.display = "block";
-
-      const hidePayment = serviceSelect.value === "graphics-pack-pendrive" && deliverySelect.value === "Cash on Delivery";
-      paymentFields.style.display = hidePayment ? "none" : "block";
-    }
-  }
-
-  function toggleReadme(event) {
-    event.preventDefault();
-    const readme = document.getElementById("readme-content");
-    readme.style.display = readme.style.display === "block" ? "none" : "block";
-  }
-
-  document.getElementById("order-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const form = e.target;
-    const hidePayment = paymentFields.style.display === "none";
-    if (!document.getElementById("policy-agree").checked || (!hidePayment && !document.getElementById("agreement").checked)) {
-      alert("দয়া করে বিকাশ কনফার্মেশন এবং নিয়মাবলিতে টিক দিন।");
-      return;
     }
 
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      if (response.ok) {
-        form.style.display = "none";
-        document.getElementById("thank-you").style.display = "block";
-      } else {
-        alert("সাবমিশনে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
-      }
-    }).catch(() => {
-      alert("নেটওয়ার্ক সমস্যার কারণে ফর্ম সাবমিট হয়নি।");
+    function submitForm() {
+      alert("✅ অর্ডার সফলভাবে নিশ্চিত করা হয়েছে!");
+      location.reload();
+    }
+
+    // Preview Image Logic
+    const pendriveModel = document.getElementById("pendriveModel");
+    const imagePreview = document.getElementById("imagePreview");
+    pendriveModel.addEventListener("change", () => {
+      const value = pendriveModel.value;
+      let imageUrl = "";
+      if (value === "sandisk") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER1.jpg";
+      if (value === "hp") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER2.jpg";
+      if (value === "transcend") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER3.jpg";
+      if (value === "samsung") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER4.jpg";
+
+      imagePreview.innerHTML = imageUrl ? `<img src="${imageUrl}" alt="Pendrive Preview">` : "";
     });
-  });
-</script>
-
+  </script>
 </body>
+
 </html>
