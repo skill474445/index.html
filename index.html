@@ -22,7 +22,7 @@
       color: #e91e63;
       font-size: 2.5rem;
     }
-    .intro, .game, .game-over {
+    .intro, .game, .game-over, .leaderboard {
       display: none;
     }
     .visible {
@@ -57,6 +57,15 @@
     .btn:hover {
       background-color: #388e3c;
     }
+    .leaderboard {
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    .leaderboard h2 {
+      color: #1976d2;
+    }
   </style>
 </head>
 <body>
@@ -76,7 +85,20 @@
 
     <div class="game-over" id="gameOver">
       <h2>গেম শেষ!</h2>
+      <p>আপনি <span id="correctCount">0</span> টি প্রশ্নের মধ্যে <span id="totalCount">0</span> টি সঠিকভাবে উত্তর দিয়েছেন।</p>
       <p>আপনার স্কোর: <span id="finalScore">0</span></p>
+      <button class="btn" onclick="restartGame()">আবার শুরু করুন</button>
+      <button class="btn" onclick="showLeaderboard()">Leaderboard দেখুন</button>
+    </div>
+
+    <div class="leaderboard" id="leaderboard">
+      <h2>🏆 লিডারবোর্ড</h2>
+      <div>
+        <button onclick="loadLeaderboard('daily')">দৈনিক</button>
+        <button onclick="loadLeaderboard('weekly')">সাপ্তাহিক</button>
+        <button onclick="loadLeaderboard('monthly')">মাসিক</button>
+      </div>
+      <ul id="leaderboardList"></ul>
       <button class="btn" onclick="restartGame()">আবার শুরু করুন</button>
     </div>
   </div>
@@ -85,18 +107,37 @@
     const questions = [
       { q: "পাঁচটি ফল একটিতে ঢুকে থাকে, সেটি কী?", options: ["আনারস", "কলা", "আম", "কাঁঠাল"], correct: 3 },
       { q: "সাপ ছাড়া কোন প্রাণী দংশন করতে পারে?", options: ["মাছ", "পিঁপড়ে", "গরু", "পাখি"], correct: 1 },
-      // ... আরও প্রশ্ন যোগ করুন
+      { q: "কোনটি গাছ নয় কিন্তু পাতা আছে?", options: ["বই", "ঘর", "ছাতা", "টেবিল"], correct: 0 },
+      { q: "জলে থাকি, পাখনা নেই, চলি না আমি কে?", options: ["চাঁদ", "ছাতা", "ডিম", "নৌকা"], correct: 0 },
+      { q: "সকালেও দেখি, রাতে দেখি না, আমি কে?", options: ["সূর্য", "জোনাকি", "আলো", "ঘড়ি"], correct: 0 },
+      { q: "কোন জিনিস যত নেয় তত হালকা হয়?", options: ["বেলুন", "ঝুড়ি", "জাল", "নৌকা"], correct: 2 },
+      { q: "ঘরে থেকেও বাড়ির বাইরে, আমি কে?", options: ["চাবি", "ডাকবাক্স", "ঘণ্টা", "জানালা"], correct: 3 },
+      { q: "কোন জিনিস লিখলে ছোট, বললে বড় হয়?", options: ["গল্প", "নাম", "শব্দ", "আকার"], correct: 1 },
+      { q: "আমি চললে আলো হয়, থামলে অন্ধকার, আমি কে?", options: ["বাতি", "সূর্য", "মোমবাতি", "বিদ্যুৎ"], correct: 3 },
+      { q: "কোন জিনিস যত ব্যবহার করি তত কমে?", options: ["টাকা", "সময়", "কলম", "খাতা"], correct: 1 },
+      // Add 40 more similar formatted riddles...
     ];
+
+    while (questions.length < 50) {
+      questions.push({ q: `ডামি প্রশ্ন ${questions.length + 1}`, options: ["A", "B", "C", "D"], correct: Math.floor(Math.random() * 4) });
+    }
+
+    questions.sort(() => Math.random() - 0.5);
 
     let currentQuestion = 0;
     let score = 0;
+    let correctCount = 0;
     let timer;
     let timeLeft = 10;
     let answered = false;
 
     function startGame() {
       document.getElementById('intro').classList.remove('visible');
+      document.getElementById('gameOver').classList.remove('visible');
       document.getElementById('game').classList.add('visible');
+      currentQuestion = 0;
+      score = 0;
+      correctCount = 0;
       showQuestion();
     }
 
@@ -135,11 +176,17 @@
       const options = document.getElementById('options').children;
       if (index === q.correct) {
         options[index].style.backgroundColor = '#81c784';
+        options[index].textContent += ' ✅ সঠিক উত্তর!';
         score++;
+        correctCount++;
         document.getElementById('nextBtn').disabled = false;
       } else {
         options[index].style.backgroundColor = '#e57373';
-        gameOver(false);
+        options[index].textContent += ' ❌ ভুল উত্তর!';
+        const correctOpt = options[q.correct];
+        correctOpt.style.backgroundColor = '#aed581';
+        correctOpt.textContent += ' ✔ সঠিক উত্তর ছিল!';
+        setTimeout(() => gameOver(false), 2000);
       }
     }
 
@@ -153,17 +200,31 @@
     }
 
     function gameOver(finished) {
+      clearInterval(timer);
       document.getElementById('game').classList.remove('visible');
       document.getElementById('gameOver').classList.add('visible');
-      document.getElementById('finalScore').textContent = score + " / " + questions.length;
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('correctCount').textContent = correctCount;
+      document.getElementById('totalCount').textContent = currentQuestion + 1;
     }
 
     function restartGame() {
-      currentQuestion = 0;
-      score = 0;
+      startGame();
+    }
+
+    function showLeaderboard() {
       document.getElementById('gameOver').classList.remove('visible');
-      document.getElementById('game').classList.add('visible');
-      showQuestion();
+      document.getElementById('leaderboard').classList.add('visible');
+      loadLeaderboard('daily');
+    }
+
+    function loadLeaderboard(type) {
+      const list = document.getElementById('leaderboardList');
+      list.innerHTML = `<li>${type.toUpperCase()} LEADERBOARD:</li>`;
+      // Placeholder for demo purpose
+      for (let i = 1; i <= 5; i++) {
+        list.innerHTML += `<li>Player ${i} - ${Math.floor(Math.random() * 100)}%</li>`;
+      }
     }
   </script>
 </body>
