@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>কে হবে কোটি পতি - Dhadha Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 30px;
+      font-size: 2.5rem;
+      color: #e91e63;
+    }
+    .game-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .question-box {
+      background: #fff3e0;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .option {
+      width: 45%;
+      margin: 10px 0;
+      padding: 15px;
+      background: linear-gradient(45deg, #fceabb, #f8b500);
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .option:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, #ffe259, #ffa751);
+    }
+    .timer {
+      font-size: 1.5rem;
+      color: #ff5722;
+      margin: 10px 0;
+    }
+    .lifelines {
+      margin: 20px 0;
+    }
+    .lifeline {
+      padding: 10px 15px;
+      margin: 0 5px;
+      background: #8bc34a;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .scoreboard {
+      margin: 20px 0;
+      font-size: 1.2rem;
+    }
+    .game-over {
+      background: #ffcdd2;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+    .leaderboard {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    .leaderboard h3 {
+      color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <h1>কে হবে কোটি পতি?</h1>
+  <div class="game-container">
+    <div class="question-box">
+      <div id="question">Question will appear here</div>
+      <div class="options">
+        <div class="option" onclick="selectOption(0)">Option A</div>
+        <div class="option" onclick="selectOption(1)">Option B</div>
+        <div class="option" onclick="selectOption(2)">Option C</div>
+        <div class="option" onclick="selectOption(3)">Option D</div>
+      </div>
+      <div class="timer">Time left: <span id="timer">10</span>s</div>
+    </div>
+    <div class="lifelines">
+      <span class="lifeline">50:50</span>
+      <span class="lifeline">Skip</span>
+      <span class="lifeline">Audience Poll</span>
+      <span class="lifeline">Expert Advice</span>
+    </div>
+    <div class="scoreboard">
+      Score: <span id="score">0</span> | Level: <span id="level">1</span>
+    </div>
+    <div class="game-over" id="gameOver" style="display:none">
+      <h2>Game Over!</h2>
+      <p>You answered <span id="correctCount">0</span> correctly out of <span id="totalQuestions">0</span></p>
+      <p>Your Score: <span id="finalScore">0</span></p>
+      <p>Accuracy: <span id="accuracy">0</span>%</p>
+      <button onclick="addToLeaderboard()">Add to Leaderboard</button>
+    </div>
+    <div class="leaderboard" id="leaderboard">
+      <h3>🏆 Leaderboard</h3>
+      <p>All Time | This Week | Today</p>
+      <ul id="leaderboardList">
+        <li>Player1 - 80%</li>
+        <li>Player2 - 75%</li>
+        <li>Player3 - 70%</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    // Game logic placeholder
+    let timer = 10;
+    let score = 0;
+    let questionIndex = 0;
+    let totalQuestions = 5;
+    let correctCount = 0;
+    let interval;
+
+    function startTimer() {
+      timer = 10;
+      document.getElementById("timer").textContent = timer;
+      interval = setInterval(() => {
+        timer--;
+        document.getElementById("timer").textContent = timer;
+        if (timer === 0) {
+          clearInterval(interval);
+          gameOver();
+        }
+      }, 1000);
+    }
+
+    function selectOption(selected) {
+      clearInterval(interval);
+      // Dummy correct answer for now:
+      const correct = 1;
+      if (selected === correct) {
+        score += 10;
+        correctCount++;
+        questionIndex++;
+        if (questionIndex < totalQuestions) {
+          nextQuestion();
+        } else {
+          gameOver();
+        }
+      } else {
+        gameOver();
+      }
+    }
+
+    function nextQuestion() {
+      document.getElementById("question").textContent = `Question ${questionIndex + 1}`;
+      document.getElementById("score").textContent = score;
+      document.getElementById("level").textContent = Math.floor(questionIndex / 5) + 1;
+      startTimer();
+    }
+
+    function gameOver() {
+      document.getElementById("gameOver").style.display = "block";
+      document.getElementById("correctCount").textContent = correctCount;
+      document.getElementById("totalQuestions").textContent = questionIndex;
+      document.getElementById("finalScore").textContent = score;
+      document.getElementById("accuracy").textContent = Math.floor((correctCount / questionIndex) * 100) || 0;
+    }
+
+    function addToLeaderboard() {
+      alert("Added to leaderboard (demo only).");
+    }
+
+    nextQuestion();
+  </script>
+</body>
+</html>
