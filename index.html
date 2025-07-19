@@ -105,18 +105,17 @@
 
   <script>
     const questions = [
-      { q: "পাঁচটি ফল একটিতে ঢুকে থাকে, সেটি কী?", options: ["আনারস", "কলা", "আম", "কাঁঠাল"], correct: 3 },
-      { q: "সাপ ছাড়া কোন প্রাণী দংশন করতে পারে?", options: ["মাছ", "পিঁপড়ে", "গরু", "পাখি"], correct: 1 },
-      { q: "কোনটি গাছ নয় কিন্তু পাতা আছে?", options: ["বই", "ঘর", "ছাতা", "টেবিল"], correct: 0 },
-      { q: "জলে থাকি, পাখনা নেই, চলি না আমি কে?", options: ["চাঁদ", "ছাতা", "ডিম", "নৌকা"], correct: 0 },
-      { q: "সকালেও দেখি, রাতে দেখি না, আমি কে?", options: ["সূর্য", "জোনাকি", "আলো", "ঘড়ি"], correct: 0 },
-      { q: "কোন জিনিস যত নেয় তত হালকা হয়?", options: ["বেলুন", "ঝুড়ি", "জাল", "নৌকা"], correct: 2 },
-      { q: "ঘরে থেকেও বাড়ির বাইরে, আমি কে?", options: ["চাবি", "ডাকবাক্স", "ঘণ্টা", "জানালা"], correct: 3 },
-      { q: "কোন জিনিস লিখলে ছোট, বললে বড় হয়?", options: ["গল্প", "নাম", "শব্দ", "আকার"], correct: 1 },
-      { q: "আমি চললে আলো হয়, থামলে অন্ধকার, আমি কে?", options: ["বাতি", "সূর্য", "মোমবাতি", "বিদ্যুৎ"], correct: 3 },
-      { q: "কোন জিনিস যত ব্যবহার করি তত কমে?", options: ["টাকা", "সময়", "কলম", "খাতা"], correct: 1 },
-      // Add 40 more similar formatted riddles...
-    ];
+  { q: "যে জিনিসটি না দেখেও সবাই চেনে সেটা কী?", options: ["আয়না", "ঘড়ি", "অন্ধকার", "রোদ"], correct: 2 },
+  { q: "যে জিনিসটি কাটলে কান্না আসে?", options: ["পেঁয়াজ", "মরিচ", "রসুন", "লেবু"], correct: 0 },
+  { q: "যার হাত নেই, পা নেই, কিন্তু দরজা খুলে দিতে পারে—সে কী?", options: ["তালা", "চাবি", "বাতাস", "ঘণ্টা"], correct: 1 },
+  { q: "দিনে দু’বার আসে, কিন্তু কখনো হাঁটে না—এটা কী?", options: ["ছায়া", "সূর্য", "ঘড়ি", "সময়"], correct: 3 },
+  { q: "যা একবার গেলে আর ফিরে আসে না, তা কী?", options: ["নদী", "সময়", "জীবন", "বৃষ্টি"], correct: 1 },
+  { q: "কোন ফলটি সবচেয়ে হাসে?", options: ["কলা", "আপেল", "জাম", "আনারস"], correct: 0 },
+  { q: "ঘুমানোর সময় কোন অঙ্গ কাজ করে না?", options: ["চোখ", "কান", "জিহ্বা", "নাক"], correct: 0 },
+  { q: "সবসময় পেছনে থাকে, সামনে আসে না—এটা কী?", options: ["ছায়া", "অতীত", "রাত", "দরজা"], correct: 1 },
+  { q: "খালি থাকতে পূর্ণ, পূর্ণ থাকতে খালি লাগে—এটা কী?", options: ["মন", "পকেট", "গ্লাস", "সময়"], correct: 0 },
+  { q: "যা তোমার, কিন্তু অন্যেরা বেশি ব্যবহার করে—এটা কী?", options: ["টাকা", "নাম", "জামা", "ফোন"], correct: 1 }
+];
 
     while (questions.length < 50) {
       questions.push({ q: `ডামি প্রশ্ন ${questions.length + 1}`, options: ["A", "B", "C", "D"], correct: Math.floor(Math.random() * 4) });
@@ -126,6 +125,7 @@
 
     let currentQuestion = 0;
     let score = 0;
+let baseScore = 1;
     let correctCount = 0;
     let timer;
     let timeLeft = 10;
@@ -177,7 +177,10 @@
       if (index === q.correct) {
         options[index].style.backgroundColor = '#81c784';
         options[index].textContent += ' ✅ সঠিক উত্তর!';
-        score++;
+        let level = Math.floor(currentQuestion / 5) + 1;
+        score += level; // Each level increases point value
+        correctCount++;
+        document.getElementById('nextBtn').disabled = false;
         correctCount++;
         document.getElementById('nextBtn').disabled = false;
       } else {
@@ -221,11 +224,15 @@
     function loadLeaderboard(type) {
       const list = document.getElementById('leaderboardList');
       list.innerHTML = `<li>${type.toUpperCase()} LEADERBOARD:</li>`;
+      list.innerHTML += `<li>আপনার স্কোর: ${score} পয়েন্ট</li>`;
       // Placeholder for demo purpose
       for (let i = 1; i <= 5; i++) {
         list.innerHTML += `<li>Player ${i} - ${Math.floor(Math.random() * 100)}%</li>`;
       }
     }
   </script>
+  <footer style="margin-top: 40px; font-size: 0.9rem; color: #555;">
+    Developed by <strong>Esran Islam Sohel</strong>
+  </footer>
 </body>
 </html>
