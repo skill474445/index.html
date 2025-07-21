@@ -1,225 +1,295 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Esran Creative Corner - Graphics Order Form</title>
+  <title>Graphics Pack অর্ডার ফর্ম | Esran Creative Corner</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background: #f9fcff; padding: 20px; color: #222; }
-    .hidden { display: none; }
-    .form-step {
-      max-width: 650px;
-      margin: auto;
-      border: 1px solid #e0e0e0;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      background-color: #fff;
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #e3f2fd;
+      margin: 0;
+      padding: 0;
     }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #eef3ff;
+    }
+
+    .form-section {
+      display: none;
+    }
+
+    .form-section.active {
+      display: block;
+    }
+
     .btn {
-      background: #007BFF;
+      background: #28a745;
       color: white;
-      padding: 10px 18px;
+      padding: 12px 20px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       margin-top: 20px;
     }
-    .btn:hover { background: #0056b3; }
-    .back-btn { background: #ccc; color: black; margin-right: 10px; }
-    label, select, input { display: block; width: 100%; margin-bottom: 10px; }
-    select, input { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
-    .blink {
-      font-size: 2rem;
-      font-weight: bold;
-      animation: blinkColors 1s infinite;
+
+    .btn:hover {
+      background: #218838;
     }
-    @keyframes blinkColors {
-      0% { color: red; }
-      25% { color: orange; }
-      50% { color: green; }
-      75% { color: blue; }
-      100% { color: violet; }
+
+    .attention, .user-agreement, .copyright {
+      background: #fff3cd;
+      padding: 15px;
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 15px;
+      color: #856404;
     }
-    footer { text-align: center; font-size: 14px; margin-top: 30px; color: #888; }
+
+    .image-preview {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 5px;
+      background: #fff;
+    }
+
+    .preview-box {
+      background: #eafaf1;
+      padding: 10px;
+      border: 1px solid #c3e6cb;
+      border-radius: 6px;
+      margin-top: 15px;
+    }
+
+    .branding {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 12px;
+      color: #999;
+    }
   </style>
 </head>
+
 <body>
+  <div class="container">
+    <div class="branding">Esran Creative Corner</div>
+    <h2><i class="fas fa-palette"></i> Graphics Pack অর্ডার ফর্ম</h2>
 
-<div id="step1" class="form-step">
-  <h2>অর্ডার ফর্ম</h2>
-  <label>নাম: <input type="text" id="name" required></label>
-  <label>ফোন: <input type="tel" id="phone" required></label>
-  <label>ইমেইল: <input type="email" id="email" required></label>
-  <label>আপনি কোন প্যাক নিতে চান?</label>
-  <select id="packType" onchange="toggleDeliveryOptions()">
-    <option value="graphics">শুধু Graphics Pack (৳150)</option>
-    <option value="pendrive">Pendrive সহ Graphics Pack</option>
-  </select>
-  <div id="deliverySection" class="hidden">
-    <label>ডেলিভারি কোথায়?</label>
-    <select id="delivery">
-      <option value="inside">ঢাকার ভিতরে (৳80)</option>
-      <option value="outside">ঢাকার বাইরে (৳150)</option>
-      <option value="instant">Instant Delivery (৳200-350)</option>
-    </select>
-    <label>Pendrive মডেল নির্বাচন করুন:</label>
-    <select id="pendriveModel">
-      <option value="Sandisk 32GB">Sandisk 32GB - ৳600</option>
-      <option value="HP 32GB">HP 32GB - ৳620</option>
-      <option value="Adata 64GB">Adata 64GB - ৳950</option>
-    </select>
+    <div class="form-section active" id="step1">
+      <label for="name">নাম:</label>
+      <input type="text" id="name" required>
+
+      <label for="phone">মোবাইল নম্বর:</label>
+      <input type="tel" id="phone" required>
+
+      <label for="email">ইমেইল:</label>
+      <input type="email" id="email" required>
+
+      <label for="service">আপনি কী ধরনের সার্ভিস নিচ্ছেন?</label>
+      <select id="service" required onchange="toggleDeliveryFields()">
+        <option value="">-- একটি নির্বাচন করুন --</option>
+        <option value="graphics">শুধু Graphics Pack (৳১৫০)</option>
+        <option value="pendrive">Pendrive সহ Graphics Pack (৳১৫০+)</option>
+      </select>
+
+      <div id="pendrive-options" style="display: none;">
+        <label for="pendriveModel">Pendrive মডেল:</label>
+        <select id="pendriveModel">
+          <option value="">-- একটি মডেল বেছে নিন --</option>
+          <option value="sandisk">SanDisk Ultra Flair 128GB</option>
+          <option value="hp">HP x765w 128GB</option>
+          <option value="transcend">Transcend JetFlash 128GB</option>
+          <option value="samsung">Samsung BAR Plus 128GB</option>
+        </select>
+
+        <div class="image-preview" id="imagePreview"></div>
+
+        <label for="deliveryType">ডেলিভারি টাইপ:</label>
+        <select id="deliveryType" onchange="togglePaymentOrCod()">
+          <option value="">-- একটি নির্বাচন করুন --</option>
+          <option value="dhaka">ঢাকার ভিতরে (৳৮০)</option>
+          <option value="outside">ঢাকার বাইরে (৳১৫০)</option>
+          <option value="instant">Instant Delivery (৳২০০+)</option>
+        </select>
+
+        <div id="paymentOrCod">
+          <label>আপনি কোনভাবে পেমেন্ট করবেন?</label>
+          <select id="paymentMethod" onchange="handlePaymentMethod()">
+            <option value="">-- একটি নির্বাচন করুন --</option>
+            <option value="online">অনলাইন পেমেন্ট (বিকাশ)</option>
+            <option value="cod">Cash on Delivery</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="attention">
+        <strong>মোট মূল্য:</strong> ৳<span id="totalAmount">১৫০</span>
+        <br>পেমেন্ট বিকাশ নাম্বার: <strong>01641138934</strong> (Send Money)
+        <br>যে নাম্বার থেকে টাকা পাঠানো হয়েছে ও Trx ID অবশ্যই দিতে হবে।
+      </div>
+
+      <button class="btn" onclick="previewOrder()">পরবর্তী ধাপে যান</button>
+    </div>
+
+    <div class="form-section" id="step2">
+      <div class="preview-box" id="orderPreview"></div>
+
+      <div class="attention">
+        <strong>সতর্কতা:</strong> আপনি যে নাম, মোবাইল নম্বর এবং ইমেইল দিয়েছেন তা যদি ভুল হয় তাহলে আপনার অর্ডার সম্পন্ন করা সম্ভব হবে না। আগ্রিম পেমেন্ট করলে তা ফেরতযোগ্য নয়। অনুগ্রহ করে আবার ভালোভাবে যাচাই করুন।
+      </div>
+
+      <div class="user-agreement">
+        <strong>ইউজার এগ্রিমেন্ট:</strong>
+        <ol>
+          <li>একবার অর্ডার কনফার্ম হলে তা বাতিল করা যাবে না।</li>
+          <li>বিকাশ পেমেন্ট ছাড়া Only COD শুধু Pendrive এর ক্ষেত্রে প্রযোজ্য।</li>
+          <li>অর্ডারের ডেলিভারি সময় সঠিক তথ্যের উপর নির্ভর করবে।</li>
+          <li>কোন সমস্যা হলে ২৪ ঘণ্টার মধ্যে আমাদের সাথে যোগাযোগ করুন।</li>
+          <li>আপনি যেকোনো সময় পেইজের পিছনে যেতে পারবেন।</li>
+          <li>সকল পেমেন্ট তথ্য নিরাপদভাবে সংরক্ষণ করা হয়।</li>
+          <li>এই ফর্মে দেওয়া তথ্য আমাদের সার্ভারে জমা থাকবে না।</li>
+          <li>Graphics Pack শুধু ডিজিটাল ফরম্যাটে প্রদান করা হবে।</li>
+          <li>Esran Creative Corner এর সমস্ত কপিরাইট সংরক্ষিত।</li>
+          <li>অর্ডার কনফার্মের পূর্বে সকল তথ্য পুনরায় যাচাই করুন।</li>
+        </ol>
+      </div>
+
+      <div class="copyright">
+        &copy; 2025 Esran Creative Corner. All rights reserved.
+      </div>
+
+      <div id="paymentSection">
+        <label for="bkashNumber">যে নাম্বার থেকে টাকা পাঠানো হয়েছে:</label>
+        <input type="text" id="bkashNumber">
+
+        <label for="trxId">Trx ID:</label>
+        <input type="text" id="trxId">
+      </div>
+
+      <button class="btn" onclick="submitForm()">✅ অর্ডার নিশ্চিত করুন</button>
+    </div>
   </div>
-  <label><input type="checkbox" id="agree"> আমি উপরের সকল শর্তাবলী ও এগ্রিমেন্ট পড়েছি এবং মানি।</label>
-  <button class="btn" onclick="nextStep(2)">পরবর্তী ধাপে যান</button>
-  <footer>Esran Creative Corner</footer>
-</div>
 
-<div id="step2" class="form-step hidden">
-  <h2>অর্ডার সারাংশ ও সতর্কতা</h2>
-  <p id="summary"></p>
-  <h4>ইউজার এগ্রিমেন্ট (নৈতিক দিক):</h4>
-  <ol>
-    <li>সততার সাথে কাজ করবেন</li>
-    <li>অবৈধভাবে কন্টেন্ট ব্যবহার করবেন না</li>
-    <li>গ্রাফিক্স অন্যের সাথে শেয়ার করবেন না</li>
-    <li>ক্লায়েন্টের চাহিদা অনুযায়ী কাজ করবেন</li>
-    <li>নিয়মিত অনুশীলন করবেন</li>
-    <li>সময়কে গুরুত্ব দিবেন</li>
-    <li>সততার সঙ্গে মার্কেটপ্লেসে কাজ করবেন</li>
-    <li>নিজেকে দক্ষ করে তুলবেন</li>
-    <li>Esran Creative Corner কে শ্রদ্ধা জানাবেন</li>
-    <li>শেখা থামাবেন না</li>
-  </ol>
-  <button class="btn back-btn" onclick="nextStep(1)">← আগের ধাপে যান</button>
-  <button class="btn" onclick="handleStep2()">পরবর্তী ধাপে যান</button>
-  <footer>Esran Creative Corner</footer>
-</div>
+  <script>
+    const serviceSelect = document.getElementById("service");
+    const pendriveOptions = document.getElementById("pendrive-options");
+    const totalAmount = document.getElementById("totalAmount");
+    const paymentSection = document.getElementById("paymentSection");
+    const paymentMethod = document.getElementById("paymentMethod");
 
-<div id="step3" class="form-step hidden">
-  <h2>পেমেন্ট করুন</h2>
-  <p>আপনার মোট Payable Amount: <strong id="totalPrice"></strong></p>
-  <p><strong>Graphics Pack:</strong> ৳150</p>
-  <p id="pendriveDetails" class="hidden"></p>
-  <p><strong>বিকাশ নম্বর:</strong> 01641138934</p>
-  <label>আপনার বিকাশ নম্বর: <input type="text" id="bkashNumber" required></label>
-  <label>Transaction ID: <input type="text" id="txnId" required></label>
-  <button class="btn back-btn" onclick="nextStep(2)">← আগের ধাপে যান</button>
-  <button class="btn" onclick="nextStep(4)">পেমেন্ট সম্পন্ন হয়েছে</button>
-  <footer>Esran Creative Corner</footer>
-</div>
-
-<div id="step4" class="form-step hidden">
-  <h2 class="blink">অভিনন্দন!</h2>
-  <div id="congratsMessage"></div>
-  <footer>Esran Creative Corner</footer>
-</div>
-
-<script>
-function toggleDeliveryOptions() {
-  const packType = document.getElementById("packType").value;
-  const deliverySection = document.getElementById("deliverySection");
-  deliverySection.classList.toggle('hidden', packType !== 'pendrive');
-}
-
-function nextStep(step) {
-  if (step === 2) {
-    if (!document.getElementById("name").value ||
-        !document.getElementById("phone").value ||
-        !document.getElementById("email").value ||
-        !document.getElementById("agree").checked) {
-      alert("অনুগ্রহ করে সকল ফিল্ড পূরণ করুন ও এগ্রিমেন্টে টিক দিন।");
-      return;
+    function toggleDeliveryFields() {
+      const value = serviceSelect.value;
+      if (value === "pendrive") {
+        pendriveOptions.style.display = "block";
+        totalAmount.textContent = "১৫০+";
+      } else {
+        pendriveOptions.style.display = "none";
+        totalAmount.textContent = "১৫০";
+        paymentSection.style.display = "block";
+      }
     }
-    fillSummary();
-  }
 
-  if (step === 3) {
-    calculateTotal();
-  }
+    function handlePaymentMethod() {
+      const method = paymentMethod.value;
+      if (method === "online") {
+        paymentSection.style.display = "block";
+      } else {
+        paymentSection.style.display = "none";
+      }
+    }
 
-  if (step === 4) {
-    showFinalMessage();
-  }
+    function togglePaymentOrCod() {
+      document.getElementById("paymentOrCod").style.display = "block";
+    }
 
-  for (let i = 1; i <= 4; i++) {
-    document.getElementById('step' + i).classList.add('hidden');
-  }
-  document.getElementById('step' + step).classList.remove('hidden');
-}
+    function previewOrder() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+      const service = document.getElementById("service").value;
+      const pendrive = document.getElementById("pendriveModel").value;
+      const delivery = document.getElementById("deliveryType").value;
+      const method = document.getElementById("paymentMethod").value;
 
-function handleStep2() {
-  nextStep(3);
-}
+      let html = `<strong>আপনার অর্ডার প্রিভিউ:</strong><br>`;
+      html += `নাম: ${name}<br>`;
+      html += `মোবাইল নম্বর: ${phone}<br>`;
+      html += `ইমেইল: ${email}<br>`;
+      html += `সার্ভিস: ${service === 'graphics' ? 'শুধু Graphics Pack' : 'Pendrive সহ Graphics Pack'}<br>`;
+      if (service === 'pendrive') {
+        html += `Pendrive মডেল: ${pendrive}<br>`;
+        html += `ডেলিভারি টাইপ: ${delivery}<br>`;
+        html += `পেমেন্ট মেথড: ${method}<br>`;
+      }
 
-function fillSummary() {
-  const pack = document.getElementById("packType").value;
-  let summary = `নাম: ${document.getElementById("name").value}<br>
-  ফোন: ${document.getElementById("phone").value}<br>
-  ইমেইল: ${document.getElementById("email").value}<br>
-  প্যাক: ${pack === 'graphics' ? 'শুধু Graphics Pack' : 'Pendrive সহ Graphics Pack'}<br>`;
+      document.getElementById("orderPreview").innerHTML = html;
 
-  if (pack === 'pendrive') {
-    summary += `ডেলিভারি: ${document.getElementById("delivery").value}<br>
-    Pendrive: ${document.getElementById("pendriveModel").value}`;
-  }
+      document.getElementById("step1").style.display = "none";
+      document.getElementById("step2").style.display = "block";
+    }
 
-  document.getElementById("summary").innerHTML = summary;
-}
+    function submitForm() {
+      alert("🎉 অভিনন্দন! আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে।\n\n" +
+        (serviceSelect.value === 'pendrive' ? "আপনার পণ্য ২-৩ দিনের মধ্যে ডেলিভারি করা হবে।" :
+          "২৪ ঘন্টার মধ্যে আপনার ইমেইলে Graphics Pack পাঠিয়ে দেওয়া হবে।") +
+        "\n\n🙏 Esran Creative Corner এর পক্ষ থেকে আন্তরিক শুভেচ্ছা ও অভিনন্দন!\nএই প্যাকটি যেন আপনার দক্ষতা বৃদ্ধি ও প্রতিষ্ঠিত হওয়ার পথে সহায়ক হয় — এই কামনা।");
+      location.reload();
+    }
 
-function calculateTotal() {
-  let total = 150;
-  const pack = document.getElementById("packType").value;
-  const pendrivePrice = {
-    "Sandisk 32GB": 600,
-    "HP 32GB": 620,
-    "Adata 64GB": 950
-  };
+    const pendriveModel = document.getElementById("pendriveModel");
+    const imagePreview = document.getElementById("imagePreview");
+    pendriveModel.addEventListener("change", () => {
+      const value = pendriveModel.value;
+      let imageUrl = "";
+      if (value === "sandisk") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER1.jpg";
+      if (value === "hp") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER2.jpg";
+      if (value === "transcend") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER3.jpg";
+      if (value === "samsung") imageUrl = "https://i.imgur.com/YOUR_PLACEHOLDER4.jpg";
 
-  if (pack === 'pendrive') {
-    const delivery = document.getElementById("delivery").value;
-    const model = document.getElementById("pendriveModel").value;
-    total += pendrivePrice[model];
-    if (delivery === 'inside') total += 80;
-    else if (delivery === 'outside') total += 150;
-    else if (delivery === 'instant') total += 250; // average instant
-
-    document.getElementById("pendriveDetails").classList.remove('hidden');
-    document.getElementById("pendriveDetails").innerHTML = `পেনড্রাইভ: ${model} - ৳${pendrivePrice[model]}<br>ডেলিভারি চার্জ: ${delivery}`;
-  }
-
-  document.getElementById("totalPrice").textContent = `৳${total}`;
-}
-
-function showFinalMessage() {
-  const pack = document.getElementById("packType").value;
-  const delivery = document.getElementById("delivery").value;
-  let msg = "<p>Esran Creative Corner এর পক্ষ থেকে আপনাকে আন্তরিক অভিনন্দন।<br>
-  আপনি এখন আরও দক্ষ, আত্মনির্ভরশীল এবং প্রফেশনাল হবার পথে এগিয়ে গেলেন।</p>";
-
-  if (pack === 'graphics') {
-    msg += `<p>আপনার অর্ডার ২৪ ঘন্টার মধ্যে আপনার ইমেইলে পাঠিয়ে দেয়া হবে। ধন্যবাদ।</p>`;
-  } else {
-    msg += `<p>আপনার অর্ডার ${delivery === 'instant' ? 'আজকের মধ্যেই' : '২ থেকে ৩ দিনের মধ্যে'} পৌঁছে যাবে।<br>
-    অনুগ্রহ করে মোট পরিমাণ টাকা প্রস্তুত রাখুন।</p>`;
-  }
-
-  msg += `<h4>সফল হবার জন্য ১০টি প্রেরণামূলক বার্তা:</h4>
-  <ul>
-    <li>সর্বদা শিখতে থাকুন</li>
-    <li>নিজেকে চ্যালেঞ্জ করুন</li>
-    <li>সময়কে গুরুত্ব দিন</li>
-    <li>নিজের কাজের প্রতি গর্ববোধ করুন</li>
-    <li>ছোট কাজকেও শ্রদ্ধা করুন</li>
-    <li>সততার সঙ্গে কাজ করুন</li>
-    <li>গ্রাহকের চাহিদা বুঝুন</li>
-    <li>ভুল থেকে শিখুন</li>
-    <li>পরিশ্রমকে সঙ্গী করুন</li>
-    <li>স্বপ্ন দেখুন এবং বাস্তবায়ন করুন</li>
-  </ul>`;
-
-  document.getElementById("congratsMessage").innerHTML = msg;
-}
-</script>
+      imagePreview.innerHTML = imageUrl ? `<img src="${imageUrl}" alt="Pendrive Preview">` : "";
+    });
+  </script>
 </body>
+
 </html>
